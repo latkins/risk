@@ -9,7 +9,9 @@ var App = React.createClass({
         return {assetName: ""
                 , assetCol: ""
                 , benchName: ""
-                , benchCol: ""};
+                , benchCol: ""
+                , alpha: null
+                , beta: null};
     },
     assetNameChange: function(event) {
         this.setState({assetName: event.target.value});
@@ -35,10 +37,11 @@ var App = React.createClass({
                 console.log(result);
                 console.log("Oh shit.");
             } else {
-                var alpha = result.data.alpha;
-                var beta = result.data.beta;
+                var alpha = Number(result.data.alpha);
+                var beta = Number(result.data.beta);
                 self.setState({alpha: alpha, beta:beta});
-                console.log(self.state);
+                console.log(self.state.alpha);
+                console.log(self.state.beta);
             }
         });
 

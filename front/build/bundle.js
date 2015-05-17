@@ -55,7 +55,9 @@
 	        return {assetName: ""
 	                , assetCol: ""
 	                , benchName: ""
-	                , benchCol: ""};
+	                , benchCol: ""
+	                , alpha: null
+	                , beta: null};
 	    },
 	    assetNameChange: function(event) {
 	        this.setState({assetName: event.target.value});
@@ -81,10 +83,11 @@
 	                console.log(result);
 	                console.log("Oh shit.");
 	            } else {
-	                var alpha = result.data.alpha;
-	                var beta = result.data.beta;
+	                var alpha = Number(result.data.alpha);
+	                var beta = Number(result.data.beta);
 	                self.setState({alpha: alpha, beta:beta});
-	                console.log(self.state);
+	                console.log(self.state.alpha);
+	                console.log(self.state.beta);
 	            }
 	        });
 
@@ -14642,17 +14645,17 @@
 	var ReactComponent = __webpack_require__(43);
 	var ReactCurrentOwner = __webpack_require__(46);
 	var ReactElement = __webpack_require__(47);
-	var ReactErrorUtils = __webpack_require__(69);
-	var ReactInstanceMap = __webpack_require__(70);
-	var ReactLifeCycle = __webpack_require__(71);
-	var ReactPropTypeLocations = __webpack_require__(72);
-	var ReactPropTypeLocationNames = __webpack_require__(68);
+	var ReactErrorUtils = __webpack_require__(70);
+	var ReactInstanceMap = __webpack_require__(71);
+	var ReactLifeCycle = __webpack_require__(72);
+	var ReactPropTypeLocations = __webpack_require__(73);
+	var ReactPropTypeLocationNames = __webpack_require__(69);
 	var ReactUpdateQueue = __webpack_require__(67);
 
 	var assign = __webpack_require__(26);
 	var invariant = __webpack_require__(29);
-	var keyMirror = __webpack_require__(73);
-	var keyOf = __webpack_require__(74);
+	var keyMirror = __webpack_require__(74);
+	var keyOf = __webpack_require__(75);
 	var warning = __webpack_require__(32);
 
 	var MIXINS_KEY = keyOf({mixins: null});
@@ -15589,7 +15592,7 @@
 	'use strict';
 
 	var assign = __webpack_require__(26);
-	var emptyObject = __webpack_require__(75);
+	var emptyObject = __webpack_require__(68);
 	var warning = __webpack_require__(32);
 
 	var didWarn = false;
@@ -16027,12 +16030,12 @@
 
 	var ReactElement = __webpack_require__(47);
 	var ReactFragment = __webpack_require__(64);
-	var ReactPropTypeLocations = __webpack_require__(72);
-	var ReactPropTypeLocationNames = __webpack_require__(68);
+	var ReactPropTypeLocations = __webpack_require__(73);
+	var ReactPropTypeLocationNames = __webpack_require__(69);
 	var ReactCurrentOwner = __webpack_require__(46);
-	var ReactNativeComponent = __webpack_require__(76);
+	var ReactNativeComponent = __webpack_require__(81);
 
-	var getIteratorFn = __webpack_require__(77);
+	var getIteratorFn = __webpack_require__(82);
 	var invariant = __webpack_require__(29);
 	var warning = __webpack_require__(32);
 
@@ -16490,7 +16493,7 @@
 	var ReactElement = __webpack_require__(47);
 	var ReactElementValidator = __webpack_require__(48);
 
-	var mapObject = __webpack_require__(78);
+	var mapObject = __webpack_require__(76);
 
 	/**
 	 * Create a factory that creates HTML tag elements.
@@ -16669,13 +16672,13 @@
 
 	'use strict';
 
-	var DOMPropertyOperations = __webpack_require__(79);
+	var DOMPropertyOperations = __webpack_require__(77);
 	var ReactComponentBrowserEnvironment =
-	  __webpack_require__(80);
-	var ReactDOMComponent = __webpack_require__(81);
+	  __webpack_require__(78);
+	var ReactDOMComponent = __webpack_require__(79);
 
 	var assign = __webpack_require__(26);
-	var escapeTextContentForBrowser = __webpack_require__(82);
+	var escapeTextContentForBrowser = __webpack_require__(80);
 
 	/**
 	 * Text nodes violate a couple assumptions that React makes about components:
@@ -16800,9 +16803,9 @@
 	var ReactBrowserComponentMixin = __webpack_require__(90);
 	var ReactClass = __webpack_require__(44);
 	var ReactComponentBrowserEnvironment =
-	  __webpack_require__(80);
+	  __webpack_require__(78);
 	var ReactDefaultBatchingStrategy = __webpack_require__(91);
-	var ReactDOMComponent = __webpack_require__(81);
+	var ReactDOMComponent = __webpack_require__(79);
 	var ReactDOMButton = __webpack_require__(92);
 	var ReactDOMForm = __webpack_require__(93);
 	var ReactDOMImg = __webpack_require__(94);
@@ -17297,14 +17300,14 @@
 	var ReactElementValidator = __webpack_require__(48);
 	var ReactEmptyComponent = __webpack_require__(113);
 	var ReactInstanceHandles = __webpack_require__(52);
-	var ReactInstanceMap = __webpack_require__(70);
+	var ReactInstanceMap = __webpack_require__(71);
 	var ReactMarkupChecksum = __webpack_require__(114);
 	var ReactPerf = __webpack_require__(54);
 	var ReactReconciler = __webpack_require__(56);
 	var ReactUpdateQueue = __webpack_require__(67);
 	var ReactUpdates = __webpack_require__(115);
 
-	var emptyObject = __webpack_require__(75);
+	var emptyObject = __webpack_require__(68);
 	var containsNode = __webpack_require__(116);
 	var getReactRootElementInContainer = __webpack_require__(117);
 	var instantiateReactComponent = __webpack_require__(118);
@@ -18293,7 +18296,7 @@
 
 	var ReactElement = __webpack_require__(47);
 	var ReactFragment = __webpack_require__(64);
-	var ReactPropTypeLocationNames = __webpack_require__(68);
+	var ReactPropTypeLocationNames = __webpack_require__(69);
 
 	var emptyFunction = __webpack_require__(61);
 
@@ -18644,7 +18647,7 @@
 
 	'use strict';
 
-	var ReactRef = __webpack_require__(122);
+	var ReactRef = __webpack_require__(121);
 	var ReactElementValidator = __webpack_require__(48);
 
 	/**
@@ -18775,9 +18778,9 @@
 	var ReactInstanceHandles = __webpack_require__(52);
 	var ReactMarkupChecksum = __webpack_require__(114);
 	var ReactServerRenderingTransaction =
-	  __webpack_require__(121);
+	  __webpack_require__(122);
 
-	var emptyObject = __webpack_require__(75);
+	var emptyObject = __webpack_require__(68);
 	var instantiateReactComponent = __webpack_require__(118);
 	var invariant = __webpack_require__(29);
 
@@ -18858,7 +18861,7 @@
 	'use strict';
 
 	var ReactCurrentOwner = __webpack_require__(46);
-	var ReactInstanceMap = __webpack_require__(70);
+	var ReactInstanceMap = __webpack_require__(71);
 	var ReactMount = __webpack_require__(53);
 
 	var invariant = __webpack_require__(29);
@@ -19443,7 +19446,7 @@
 	var ReactFragment = __webpack_require__(64);
 	var ReactInstanceHandles = __webpack_require__(52);
 
-	var getIteratorFn = __webpack_require__(77);
+	var getIteratorFn = __webpack_require__(82);
 	var invariant = __webpack_require__(29);
 	var warning = __webpack_require__(32);
 
@@ -19695,7 +19698,7 @@
 
 	'use strict';
 
-	var keyMirror = __webpack_require__(73);
+	var keyMirror = __webpack_require__(74);
 
 	var PropagationPhases = keyMirror({bubbled: null, captured: null});
 
@@ -19771,10 +19774,10 @@
 
 	'use strict';
 
-	var ReactLifeCycle = __webpack_require__(71);
+	var ReactLifeCycle = __webpack_require__(72);
 	var ReactCurrentOwner = __webpack_require__(46);
 	var ReactElement = __webpack_require__(47);
-	var ReactInstanceMap = __webpack_require__(70);
+	var ReactInstanceMap = __webpack_require__(71);
 	var ReactUpdates = __webpack_require__(115);
 
 	var assign = __webpack_require__(26);
@@ -20068,6 +20071,33 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
+	 * @providesModule emptyObject
+	 */
+
+	"use strict";
+
+	var emptyObject = {};
+
+	if ("production" !== process.env.NODE_ENV) {
+	  Object.freeze(emptyObject);
+	}
+
+	module.exports = emptyObject;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(60)))
+
+/***/ },
+/* 69 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
 	 * @providesModule ReactPropTypeLocationNames
 	 */
 
@@ -20088,7 +20118,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(60)))
 
 /***/ },
-/* 69 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20124,7 +20154,7 @@
 
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20177,7 +20207,7 @@
 
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20218,7 +20248,7 @@
 
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20234,7 +20264,7 @@
 
 	'use strict';
 
-	var keyMirror = __webpack_require__(73);
+	var keyMirror = __webpack_require__(74);
 
 	var ReactPropTypeLocations = keyMirror({
 	  prop: null,
@@ -20246,7 +20276,7 @@
 
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -20304,7 +20334,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(60)))
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20344,192 +20374,7 @@
 
 
 /***/ },
-/* 75 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule emptyObject
-	 */
-
-	"use strict";
-
-	var emptyObject = {};
-
-	if ("production" !== process.env.NODE_ENV) {
-	  Object.freeze(emptyObject);
-	}
-
-	module.exports = emptyObject;
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(60)))
-
-/***/ },
 /* 76 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2014-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactNativeComponent
-	 */
-
-	'use strict';
-
-	var assign = __webpack_require__(26);
-	var invariant = __webpack_require__(29);
-
-	var autoGenerateWrapperClass = null;
-	var genericComponentClass = null;
-	// This registry keeps track of wrapper classes around native tags
-	var tagToComponentClass = {};
-	var textComponentClass = null;
-
-	var ReactNativeComponentInjection = {
-	  // This accepts a class that receives the tag string. This is a catch all
-	  // that can render any kind of tag.
-	  injectGenericComponentClass: function(componentClass) {
-	    genericComponentClass = componentClass;
-	  },
-	  // This accepts a text component class that takes the text string to be
-	  // rendered as props.
-	  injectTextComponentClass: function(componentClass) {
-	    textComponentClass = componentClass;
-	  },
-	  // This accepts a keyed object with classes as values. Each key represents a
-	  // tag. That particular tag will use this class instead of the generic one.
-	  injectComponentClasses: function(componentClasses) {
-	    assign(tagToComponentClass, componentClasses);
-	  },
-	  // Temporary hack since we expect DOM refs to behave like composites,
-	  // for this release.
-	  injectAutoWrapper: function(wrapperFactory) {
-	    autoGenerateWrapperClass = wrapperFactory;
-	  }
-	};
-
-	/**
-	 * Get a composite component wrapper class for a specific tag.
-	 *
-	 * @param {ReactElement} element The tag for which to get the class.
-	 * @return {function} The React class constructor function.
-	 */
-	function getComponentClassForElement(element) {
-	  if (typeof element.type === 'function') {
-	    return element.type;
-	  }
-	  var tag = element.type;
-	  var componentClass = tagToComponentClass[tag];
-	  if (componentClass == null) {
-	    tagToComponentClass[tag] = componentClass = autoGenerateWrapperClass(tag);
-	  }
-	  return componentClass;
-	}
-
-	/**
-	 * Get a native internal component class for a specific tag.
-	 *
-	 * @param {ReactElement} element The element to create.
-	 * @return {function} The internal class constructor function.
-	 */
-	function createInternalComponent(element) {
-	  ("production" !== process.env.NODE_ENV ? invariant(
-	    genericComponentClass,
-	    'There is no registered component for the tag %s',
-	    element.type
-	  ) : invariant(genericComponentClass));
-	  return new genericComponentClass(element.type, element.props);
-	}
-
-	/**
-	 * @param {ReactText} text
-	 * @return {ReactComponent}
-	 */
-	function createInstanceForText(text) {
-	  return new textComponentClass(text);
-	}
-
-	/**
-	 * @param {ReactComponent} component
-	 * @return {boolean}
-	 */
-	function isTextComponent(component) {
-	  return component instanceof textComponentClass;
-	}
-
-	var ReactNativeComponent = {
-	  getComponentClassForElement: getComponentClassForElement,
-	  createInternalComponent: createInternalComponent,
-	  createInstanceForText: createInstanceForText,
-	  isTextComponent: isTextComponent,
-	  injection: ReactNativeComponentInjection
-	};
-
-	module.exports = ReactNativeComponent;
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(60)))
-
-/***/ },
-/* 77 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule getIteratorFn
-	 * @typechecks static-only
-	 */
-
-	'use strict';
-
-	/* global Symbol */
-	var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
-	var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
-
-	/**
-	 * Returns the iterator method function contained on the iterable object.
-	 *
-	 * Be sure to invoke the function with the iterable as context:
-	 *
-	 *     var iteratorFn = getIteratorFn(myIterable);
-	 *     if (iteratorFn) {
-	 *       var iterator = iteratorFn.call(myIterable);
-	 *       ...
-	 *     }
-	 *
-	 * @param {?object} maybeIterable
-	 * @return {?function}
-	 */
-	function getIteratorFn(maybeIterable) {
-	  var iteratorFn = maybeIterable && (
-	    (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL])
-	  );
-	  if (typeof iteratorFn === 'function') {
-	    return iteratorFn;
-	  }
-	}
-
-	module.exports = getIteratorFn;
-
-
-/***/ },
-/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20586,7 +20431,7 @@
 
 
 /***/ },
-/* 79 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -20781,7 +20626,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(60)))
 
 /***/ },
-/* 80 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20832,7 +20677,7 @@
 
 
 /***/ },
-/* 81 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -20853,19 +20698,19 @@
 
 	var CSSPropertyOperations = __webpack_require__(127);
 	var DOMProperty = __webpack_require__(111);
-	var DOMPropertyOperations = __webpack_require__(79);
+	var DOMPropertyOperations = __webpack_require__(77);
 	var ReactBrowserEventEmitter = __webpack_require__(112);
 	var ReactComponentBrowserEnvironment =
-	  __webpack_require__(80);
+	  __webpack_require__(78);
 	var ReactMount = __webpack_require__(53);
 	var ReactMultiChild = __webpack_require__(128);
 	var ReactPerf = __webpack_require__(54);
 
 	var assign = __webpack_require__(26);
-	var escapeTextContentForBrowser = __webpack_require__(82);
+	var escapeTextContentForBrowser = __webpack_require__(80);
 	var invariant = __webpack_require__(29);
 	var isEventSupported = __webpack_require__(129);
-	var keyOf = __webpack_require__(74);
+	var keyOf = __webpack_require__(75);
 	var warning = __webpack_require__(32);
 
 	var deleteListener = ReactBrowserEventEmitter.deleteListener;
@@ -21345,7 +21190,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(60)))
 
 /***/ },
-/* 82 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21389,6 +21234,164 @@
 
 
 /***/ },
+/* 81 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2014-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactNativeComponent
+	 */
+
+	'use strict';
+
+	var assign = __webpack_require__(26);
+	var invariant = __webpack_require__(29);
+
+	var autoGenerateWrapperClass = null;
+	var genericComponentClass = null;
+	// This registry keeps track of wrapper classes around native tags
+	var tagToComponentClass = {};
+	var textComponentClass = null;
+
+	var ReactNativeComponentInjection = {
+	  // This accepts a class that receives the tag string. This is a catch all
+	  // that can render any kind of tag.
+	  injectGenericComponentClass: function(componentClass) {
+	    genericComponentClass = componentClass;
+	  },
+	  // This accepts a text component class that takes the text string to be
+	  // rendered as props.
+	  injectTextComponentClass: function(componentClass) {
+	    textComponentClass = componentClass;
+	  },
+	  // This accepts a keyed object with classes as values. Each key represents a
+	  // tag. That particular tag will use this class instead of the generic one.
+	  injectComponentClasses: function(componentClasses) {
+	    assign(tagToComponentClass, componentClasses);
+	  },
+	  // Temporary hack since we expect DOM refs to behave like composites,
+	  // for this release.
+	  injectAutoWrapper: function(wrapperFactory) {
+	    autoGenerateWrapperClass = wrapperFactory;
+	  }
+	};
+
+	/**
+	 * Get a composite component wrapper class for a specific tag.
+	 *
+	 * @param {ReactElement} element The tag for which to get the class.
+	 * @return {function} The React class constructor function.
+	 */
+	function getComponentClassForElement(element) {
+	  if (typeof element.type === 'function') {
+	    return element.type;
+	  }
+	  var tag = element.type;
+	  var componentClass = tagToComponentClass[tag];
+	  if (componentClass == null) {
+	    tagToComponentClass[tag] = componentClass = autoGenerateWrapperClass(tag);
+	  }
+	  return componentClass;
+	}
+
+	/**
+	 * Get a native internal component class for a specific tag.
+	 *
+	 * @param {ReactElement} element The element to create.
+	 * @return {function} The internal class constructor function.
+	 */
+	function createInternalComponent(element) {
+	  ("production" !== process.env.NODE_ENV ? invariant(
+	    genericComponentClass,
+	    'There is no registered component for the tag %s',
+	    element.type
+	  ) : invariant(genericComponentClass));
+	  return new genericComponentClass(element.type, element.props);
+	}
+
+	/**
+	 * @param {ReactText} text
+	 * @return {ReactComponent}
+	 */
+	function createInstanceForText(text) {
+	  return new textComponentClass(text);
+	}
+
+	/**
+	 * @param {ReactComponent} component
+	 * @return {boolean}
+	 */
+	function isTextComponent(component) {
+	  return component instanceof textComponentClass;
+	}
+
+	var ReactNativeComponent = {
+	  getComponentClassForElement: getComponentClassForElement,
+	  createInternalComponent: createInternalComponent,
+	  createInstanceForText: createInstanceForText,
+	  isTextComponent: isTextComponent,
+	  injection: ReactNativeComponentInjection
+	};
+
+	module.exports = ReactNativeComponent;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(60)))
+
+/***/ },
+/* 82 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule getIteratorFn
+	 * @typechecks static-only
+	 */
+
+	'use strict';
+
+	/* global Symbol */
+	var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+	var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
+
+	/**
+	 * Returns the iterator method function contained on the iterable object.
+	 *
+	 * Be sure to invoke the function with the iterable as context:
+	 *
+	 *     var iteratorFn = getIteratorFn(myIterable);
+	 *     if (iteratorFn) {
+	 *       var iterator = iteratorFn.call(myIterable);
+	 *       ...
+	 *     }
+	 *
+	 * @param {?object} maybeIterable
+	 * @return {?function}
+	 */
+	function getIteratorFn(maybeIterable) {
+	  var iteratorFn = maybeIterable && (
+	    (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL])
+	  );
+	  if (typeof iteratorFn === 'function') {
+	    return iteratorFn;
+	  }
+	}
+
+	module.exports = getIteratorFn;
+
+
+/***/ },
 /* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -21413,7 +21416,7 @@
 	var SyntheticCompositionEvent = __webpack_require__(132);
 	var SyntheticInputEvent = __webpack_require__(133);
 
-	var keyOf = __webpack_require__(74);
+	var keyOf = __webpack_require__(75);
 
 	var END_KEYCODES = [9, 13, 27, 32]; // Tab, Return, Esc, Space
 	var START_KEYCODE = 229;
@@ -21913,7 +21916,7 @@
 
 	var isEventSupported = __webpack_require__(129);
 	var isTextInputElement = __webpack_require__(136);
-	var keyOf = __webpack_require__(74);
+	var keyOf = __webpack_require__(75);
 
 	var topLevelTypes = EventConstants.topLevelTypes;
 
@@ -22319,7 +22322,7 @@
 
 	'use strict';
 
-	var keyOf = __webpack_require__(74);
+	var keyOf = __webpack_require__(75);
 
 	/**
 	 * Module that is injectable into `EventPluginHub`, that specifies a
@@ -22368,7 +22371,7 @@
 	var SyntheticMouseEvent = __webpack_require__(137);
 
 	var ReactMount = __webpack_require__(53);
-	var keyOf = __webpack_require__(74);
+	var keyOf = __webpack_require__(75);
 
 	var topLevelTypes = EventConstants.topLevelTypes;
 	var getFirstReactDOM = ReactMount.getFirstReactDOM;
@@ -22900,7 +22903,7 @@
 	var ReactClass = __webpack_require__(44);
 	var ReactElement = __webpack_require__(47);
 
-	var keyMirror = __webpack_require__(73);
+	var keyMirror = __webpack_require__(74);
 
 	var button = ReactElement.createFactory('button');
 
@@ -23071,7 +23074,7 @@
 
 	var CSSPropertyOperations = __webpack_require__(127);
 	var DOMChildrenOperations = __webpack_require__(141);
-	var DOMPropertyOperations = __webpack_require__(79);
+	var DOMPropertyOperations = __webpack_require__(77);
 	var ReactMount = __webpack_require__(53);
 	var ReactPerf = __webpack_require__(54);
 
@@ -23287,7 +23290,7 @@
 	'use strict';
 
 	var AutoFocusMixin = __webpack_require__(139);
-	var DOMPropertyOperations = __webpack_require__(79);
+	var DOMPropertyOperations = __webpack_require__(77);
 	var LinkedValueUtils = __webpack_require__(142);
 	var ReactBrowserComponentMixin = __webpack_require__(90);
 	var ReactClass = __webpack_require__(44);
@@ -23529,7 +23532,7 @@
 	'use strict';
 
 	var AutoFocusMixin = __webpack_require__(139);
-	var DOMPropertyOperations = __webpack_require__(79);
+	var DOMPropertyOperations = __webpack_require__(77);
 	var LinkedValueUtils = __webpack_require__(142);
 	var ReactBrowserComponentMixin = __webpack_require__(90);
 	var ReactClass = __webpack_require__(44);
@@ -23864,8 +23867,8 @@
 	var ReactClass = __webpack_require__(44);
 	var ReactEmptyComponent = __webpack_require__(113);
 	var ReactBrowserEventEmitter = __webpack_require__(112);
-	var ReactNativeComponent = __webpack_require__(76);
-	var ReactDOMComponent = __webpack_require__(81);
+	var ReactNativeComponent = __webpack_require__(81);
+	var ReactDOMComponent = __webpack_require__(79);
 	var ReactPerf = __webpack_require__(54);
 	var ReactRootIndex = __webpack_require__(110);
 	var ReactUpdates = __webpack_require__(115);
@@ -24091,7 +24094,7 @@
 
 	var getActiveElement = __webpack_require__(150);
 	var isTextInputElement = __webpack_require__(136);
-	var keyOf = __webpack_require__(74);
+	var keyOf = __webpack_require__(75);
 	var shallowEqual = __webpack_require__(151);
 
 	var topLevelTypes = EventConstants.topLevelTypes;
@@ -24334,7 +24337,7 @@
 	var getEventCharCode = __webpack_require__(159);
 
 	var invariant = __webpack_require__(29);
-	var keyOf = __webpack_require__(74);
+	var keyOf = __webpack_require__(75);
 	var warning = __webpack_require__(32);
 
 	var topLevelTypes = EventConstants.topLevelTypes;
@@ -25877,7 +25880,7 @@
 	'use strict';
 
 	var ReactElement = __webpack_require__(47);
-	var ReactInstanceMap = __webpack_require__(70);
+	var ReactInstanceMap = __webpack_require__(71);
 
 	var invariant = __webpack_require__(29);
 
@@ -26401,7 +26404,7 @@
 
 	var ReactCompositeComponent = __webpack_require__(167);
 	var ReactEmptyComponent = __webpack_require__(113);
-	var ReactNativeComponent = __webpack_require__(76);
+	var ReactNativeComponent = __webpack_require__(81);
 
 	var assign = __webpack_require__(26);
 	var invariant = __webpack_require__(29);
@@ -26727,6 +26730,81 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactRef
+	 */
+
+	'use strict';
+
+	var ReactOwner = __webpack_require__(168);
+
+	var ReactRef = {};
+
+	function attachRef(ref, component, owner) {
+	  if (typeof ref === 'function') {
+	    ref(component.getPublicInstance());
+	  } else {
+	    // Legacy ref
+	    ReactOwner.addComponentAsRefTo(component, ref, owner);
+	  }
+	}
+
+	function detachRef(ref, component, owner) {
+	  if (typeof ref === 'function') {
+	    ref(null);
+	  } else {
+	    // Legacy ref
+	    ReactOwner.removeComponentAsRefFrom(component, ref, owner);
+	  }
+	}
+
+	ReactRef.attachRefs = function(instance, element) {
+	  var ref = element.ref;
+	  if (ref != null) {
+	    attachRef(ref, instance, element._owner);
+	  }
+	};
+
+	ReactRef.shouldUpdateRefs = function(prevElement, nextElement) {
+	  // If either the owner or a `ref` has changed, make sure the newest owner
+	  // has stored a reference to `this`, and the previous owner (if different)
+	  // has forgotten the reference to `this`. We use the element instead
+	  // of the public this.props because the post processing cannot determine
+	  // a ref. The ref conceptually lives on the element.
+
+	  // TODO: Should this even be possible? The owner cannot change because
+	  // it's forbidden by shouldUpdateReactComponent. The ref can change
+	  // if you swap the keys of but not the refs. Reconsider where this check
+	  // is made. It probably belongs where the key checking and
+	  // instantiateReactComponent is done.
+
+	  return (
+	    nextElement._owner !== prevElement._owner ||
+	    nextElement.ref !== prevElement.ref
+	  );
+	};
+
+	ReactRef.detachRefs = function(instance, element) {
+	  var ref = element.ref;
+	  if (ref != null) {
+	    detachRef(ref, instance, element._owner);
+	  }
+	};
+
+	module.exports = ReactRef;
+
+
+/***/ },
+/* 122 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
 	 * Copyright 2014-2015, Facebook, Inc.
 	 * All rights reserved.
 	 *
@@ -26840,81 +26918,6 @@
 
 
 /***/ },
-/* 122 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactRef
-	 */
-
-	'use strict';
-
-	var ReactOwner = __webpack_require__(168);
-
-	var ReactRef = {};
-
-	function attachRef(ref, component, owner) {
-	  if (typeof ref === 'function') {
-	    ref(component.getPublicInstance());
-	  } else {
-	    // Legacy ref
-	    ReactOwner.addComponentAsRefTo(component, ref, owner);
-	  }
-	}
-
-	function detachRef(ref, component, owner) {
-	  if (typeof ref === 'function') {
-	    ref(null);
-	  } else {
-	    // Legacy ref
-	    ReactOwner.removeComponentAsRefFrom(component, ref, owner);
-	  }
-	}
-
-	ReactRef.attachRefs = function(instance, element) {
-	  var ref = element.ref;
-	  if (ref != null) {
-	    attachRef(ref, instance, element._owner);
-	  }
-	};
-
-	ReactRef.shouldUpdateRefs = function(prevElement, nextElement) {
-	  // If either the owner or a `ref` has changed, make sure the newest owner
-	  // has stored a reference to `this`, and the previous owner (if different)
-	  // has forgotten the reference to `this`. We use the element instead
-	  // of the public this.props because the post processing cannot determine
-	  // a ref. The ref conceptually lives on the element.
-
-	  // TODO: Should this even be possible? The owner cannot change because
-	  // it's forbidden by shouldUpdateReactComponent. The ref can change
-	  // if you swap the keys of but not the refs. Reconsider where this check
-	  // is made. It probably belongs where the key checking and
-	  // instantiateReactComponent is done.
-
-	  return (
-	    nextElement._owner !== prevElement._owner ||
-	    nextElement.ref !== prevElement.ref
-	  );
-	};
-
-	ReactRef.detachRefs = function(instance, element) {
-	  var ref = element.ref;
-	  if (ref != null) {
-	    detachRef(ref, instance, element._owner);
-	  }
-	};
-
-	module.exports = ReactRef;
-
-
-/***/ },
 /* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -27001,7 +27004,7 @@
 
 	'use strict';
 
-	var escapeTextContentForBrowser = __webpack_require__(82);
+	var escapeTextContentForBrowser = __webpack_require__(80);
 
 	/**
 	 * Escapes attribute value to prevent scripting attacks.
@@ -31046,17 +31049,17 @@
 	var ReactCurrentOwner = __webpack_require__(46);
 	var ReactElement = __webpack_require__(47);
 	var ReactElementValidator = __webpack_require__(48);
-	var ReactInstanceMap = __webpack_require__(70);
-	var ReactLifeCycle = __webpack_require__(71);
-	var ReactNativeComponent = __webpack_require__(76);
+	var ReactInstanceMap = __webpack_require__(71);
+	var ReactLifeCycle = __webpack_require__(72);
+	var ReactNativeComponent = __webpack_require__(81);
 	var ReactPerf = __webpack_require__(54);
-	var ReactPropTypeLocations = __webpack_require__(72);
-	var ReactPropTypeLocationNames = __webpack_require__(68);
+	var ReactPropTypeLocations = __webpack_require__(73);
+	var ReactPropTypeLocationNames = __webpack_require__(69);
 	var ReactReconciler = __webpack_require__(56);
 	var ReactUpdates = __webpack_require__(115);
 
 	var assign = __webpack_require__(26);
-	var emptyObject = __webpack_require__(75);
+	var emptyObject = __webpack_require__(68);
 	var invariant = __webpack_require__(29);
 	var shouldUpdateReactComponent = __webpack_require__(120);
 	var warning = __webpack_require__(32);
@@ -32412,7 +32415,7 @@
 
 	'use strict';
 
-	var keyMirror = __webpack_require__(73);
+	var keyMirror = __webpack_require__(74);
 
 	/**
 	 * When a component's children are updated, a series of update configuration
@@ -33000,7 +33003,7 @@
 	'use strict';
 
 	var ExecutionEnvironment = __webpack_require__(27);
-	var escapeTextContentForBrowser = __webpack_require__(82);
+	var escapeTextContentForBrowser = __webpack_require__(80);
 	var setInnerHTML = __webpack_require__(119);
 
 	/**

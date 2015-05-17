@@ -1,10 +1,11 @@
 from flask import Flask
 from flask import request, jsonify
+from betacalc import calcAlphaBeta
+from Quandl import DatasetNotFound
 
 app = Flask(__name__, static_folder='front', static_url_path='')
 
-def calcAlphaBeta(assetName, assetCol, benchName, benchCol, start, end):
-    return(1, 1)
+errorResp = {'data' : None, 'message' : 'error'}
 
 @app.route('/', methods=["GET"])
 def root():
@@ -23,13 +24,19 @@ def calcBeta():
     start = request.args.get('start')
     end = request.args.get('end')
 
-    if assetName and assetCol and benchName and benchCol:
-        (alpha, beta) = calcAlphaBeta(assetName, assetCol, benchName, benchCol, start, end)
-        resp = jsonify({'data' : {'alpha' : alpha, 'beta' : beta}, 'message' : "ok"})
-        return(resp)
-    else:
-        resp = jsonify({'data' : None, 'message' : 'error'})
-        return(resp)
+    try:
+        print(assetName, assetCol, benchName, benchCol, start, end)
+        (alpha, beta) = calcAlphaBeta(assetName, assetCol, benchName, benchCol)
+        print(alpha, beta)
+        resp = jsonify({'data' : {'alpha' : float(alpha), 'beta' : float(beta)}, 'message' : "ok"})
+    except DatasetNotFound as e:
+        print(e)
+        resp = jsonify(errorResp)
+
+    return(resp)
 
 if __name__ == "__main__":
     app.run()
+    # (alpha, beta) = calcAlphaBeta(assetName, assetCol, benchName, benchCol)
+
+    # print(calcAlphaBeta("YAHOO/GOOGL","Adjusted Close_asset","YAHOO/INDEX_GSPC","Adjusted Close"))
