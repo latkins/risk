@@ -106,7 +106,7 @@
 	            this.updateAsset(asset,
 	                             $.getJSON("/calc_beta", query, function(result) {
 	                                 if (!result || !result.data) {
-	                                     console.log("Oh shit.");
+	                                     console.error("Oh shit.");
 	                                 } else {
 	                                     var alpha = Number(result.data.alpha);
 	                                     var beta = Number(result.data.beta);
@@ -125,7 +125,7 @@
 	            this.updateAsset(asset,
 	                             $.getJSON("/asset_price", query, function(result) {
 	                                 if (!result || !result.data) {
-	                                     console.log("Oh shit.");
+	                                     console.error("Oh shit.");
 	                                 } else {
 	                                     var assetPrice = Number(result.data.asset_price);
 	                                     asset.assetPrice = assetPrice;
@@ -160,14 +160,23 @@
 	    },
 	    render: function () {
 	        var benchCode = this.state.benchCode;
+	        var validAssets = _.filter(this.state.assets, function(a) { return(!a.loading && !a.error); });
+	        var weightedBeta = "";
+	        if (validAssets.length >= 0) {
+	            var totalValue = 0;
+	            var totalBeta = 0;
+	            for (var idx in validAssets) {
+	                var a = validAssets[idx];
+	                totalValue += a.assetPrice * a.stockNum;
+	                totalBeta += a.beta * (a.assetPrice * a.stockNum);
+	            }
+	            weightedBeta = totalBeta / totalValue;
+	        }
 	        return(
 	            React.createElement("div", {className: "row"}, 
-	              React.createElement("form", {ref: "form"}, 
-	                React.createElement("label", null, "Input your benchmark"), 
-	                React.createElement("input", {type: "text", value: benchCode, onChange: this.updateBenchmark})
-	              ), 
-	                React.createElement("hr", null), 
-	                React.createElement(AssetLst, {deleteAsset: this.deleteAsset, addAsset: this.addAsset, assets: this.state.assets})
+	                React.createElement("span", null, "Portfolio Beta Value: ", weightedBeta), 
+	                React.createElement("span", null, "Total Portfolio Value: ", totalValue), 
+	                React.createElement(AssetLst, {updateAsset: this.updateAsset, deleteAsset: this.deleteAsset, addAsset: this.addAsset, assets: this.state.assets})
 	            )
 	    ); }
 	});
@@ -190,7 +199,7 @@
 	    render: function() {
 	        var self = this;
 	        var assetNodes = this.props.assets.map(function(a){
-	            return(React.createElement("li", null, React.createElement(Asset, {deleteAsset: self.props.deleteAsset, asset: a})));
+	            return(React.createElement("li", null, React.createElement(Asset, {updateAsset: self.props.updateAsset, deleteAsset: self.props.deleteAsset, asset: a})));
 	        });
 	        var newAssetCode = this.state.newAssetCode;
 	        return (
@@ -210,11 +219,19 @@
 	});
 
 	var Asset = React.createClass({displayName: "Asset",
+	    getInitialState: function() {
+	        return({stockNum: this.props.asset.stockNum});
+	    },
 	    handleDelete: function () {
 	        this.props.deleteAsset(this.props.asset);
 	    },
+	    updateStockNum: function (event) {
+	        var asset = this.props.asset;
+	        this.setState({stockNum: event.target.value});
+	        asset.stockNum = event.target.value;
+	        this.props.updateAsset(asset);
+	    },
 	    render: function () {
-	        console.log(this.props);
 	        if (this.props.asset.error === true) {
 	            return (React.createElement("div", null, 
 	                    React.createElement("h4", null, 
@@ -239,6 +256,7 @@
 	                    this.props.asset.assetName
 	                  ), 
 
+	                    React.createElement("input", {type: "number", value: this.state.stockNum, onChange: this.updateStockNum}), 
 	                    React.createElement("span", null, "Beta for asset: ", this.props.asset.beta), 
 	                    React.createElement("span", null, "Alpha for asset: ", this.props.asset.alpha), 
 	                    React.createElement("span", null, "Stock value is: ", stockVal), 
