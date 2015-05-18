@@ -60,7 +60,7 @@ var AlphaBeta = React.createClass({
             this.updateAsset(asset,
                              $.getJSON("/calc_beta", query, function(result) {
                                  if (!result || !result.data) {
-                                     console.log("Oh shit.");
+                                     console.error("Oh shit.");
                                  } else {
                                      var alpha = Number(result.data.alpha);
                                      var beta = Number(result.data.beta);
@@ -79,7 +79,7 @@ var AlphaBeta = React.createClass({
             this.updateAsset(asset,
                              $.getJSON("/asset_price", query, function(result) {
                                  if (!result || !result.data) {
-                                     console.log("Oh shit.");
+                                     console.error("Oh shit.");
                                  } else {
                                      var assetPrice = Number(result.data.asset_price);
                                      asset.assetPrice = assetPrice;
@@ -114,14 +114,23 @@ var AlphaBeta = React.createClass({
     },
     render: function () {
         var benchCode = this.state.benchCode;
+        var validAssets = _.filter(this.state.assets, function(a) { return(!a.loading && !a.error); });
+        var weightedBeta = "";
+        if (validAssets.length >= 0) {
+            var totalValue = 0;
+            var totalBeta = 0;
+            for (var idx in validAssets) {
+                var a = validAssets[idx];
+                totalValue += a.assetPrice * a.stockNum;
+                totalBeta += a.beta * (a.assetPrice * a.stockNum);
+            }
+            weightedBeta = totalBeta / totalValue;
+        }
         return(
             <div className="row">
-              <form ref="form">
-                <label>Input your benchmark</label>
-                <input type="text" value={benchCode} onChange={this.updateBenchmark} />
-              </form>
-                <hr/>
-                <AssetLst deleteAsset={this.deleteAsset} addAsset={this.addAsset} assets={this.state.assets}/>
+                <span>Portfolio Beta Value: {weightedBeta}</span>
+                <span>Total Portfolio Value: {totalValue}</span>
+                <AssetLst updateAsset={this.updateAsset} deleteAsset={this.deleteAsset} addAsset={this.addAsset} assets={this.state.assets}/>
             </div>
     ); }
 });
@@ -144,7 +153,7 @@ var AssetLst = React.createClass({
     render: function() {
         var self = this;
         var assetNodes = this.props.assets.map(function(a){
-            return(<li><Asset deleteAsset={self.props.deleteAsset} asset={a} /></li>);
+            return(<li><Asset updateAsset={self.props.updateAsset} deleteAsset={self.props.deleteAsset} asset={a} /></li>);
         });
         var newAssetCode = this.state.newAssetCode;
         return (
@@ -164,11 +173,19 @@ var AssetLst = React.createClass({
 });
 
 var Asset = React.createClass({
+    getInitialState: function() {
+        return({stockNum: this.props.asset.stockNum});
+    },
     handleDelete: function () {
         this.props.deleteAsset(this.props.asset);
     },
+    updateStockNum: function (event) {
+        var asset = this.props.asset;
+        this.setState({stockNum: event.target.value});
+        asset.stockNum = event.target.value;
+        this.props.updateAsset(asset);
+    },
     render: function () {
-        console.log(this.props);
         if (this.props.asset.error === true) {
             return (<div>
                     <h4>
@@ -193,6 +210,7 @@ var Asset = React.createClass({
                     {this.props.asset.assetName}
                   </h4>
 
+                    <input type="number" value={this.state.stockNum} onChange={this.updateStockNum} />
                     <span>Beta for asset: {this.props.asset.beta}</span>
                     <span>Alpha for asset: {this.props.asset.alpha}</span>
                     <span>Stock value is: {stockVal}</span>
