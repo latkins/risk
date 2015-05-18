@@ -8,14 +8,9 @@ var App = React.createClass({
     render: function () {
         return (
 
-                <div className="app">
-
-                <div className="container-fluid">
-                <div className="row">
-                <div className="col-md-10 col-md-offset-1">
+                <div className="container">
+                <div className="col-lg-8 col-lg-offset-2">
                 <RouteHandler/>
-                </div>
-                </div>
                 </div>
                 </div>
         );
@@ -47,7 +42,7 @@ var AlphaBeta = React.createClass({
         var assetArray = this.state.assets.slice();
         var uuid = this.uuid();
         var asset = {assetName: newAssetCode, key: uuid, beta: null, alpha: null, stockNum: 1, assetPrice: null, loading: false, error: false};
-        assetArray.push(asset);
+        assetArray.unshift(asset);
         this.setState({assets: assetArray}, function() {
             this.calcAsset(asset);
         });
@@ -116,6 +111,7 @@ var AlphaBeta = React.createClass({
         var benchCode = this.state.benchCode;
         var validAssets = _.filter(this.state.assets, function(a) { return(!a.loading && !a.error); });
         var weightedBeta = "";
+        var weightedBetaRounded = "";
         if (validAssets.length >= 0) {
             var totalValue = 0;
             var totalBeta = 0;
@@ -123,14 +119,22 @@ var AlphaBeta = React.createClass({
                 var a = validAssets[idx];
                 totalValue += a.assetPrice * a.stockNum;
                 totalBeta += a.beta * (a.assetPrice * a.stockNum);
+                totalValue = Math.round(totalValue*100)/100
             }
             weightedBeta = totalBeta / totalValue;
+            if (weightedBeta){
+                weightedBetaRounded = Math.round(weightedBeta*100)/100
+            }
         }
         return(
-            <div className="row">
-                <span>Portfolio Beta Value: {weightedBeta}</span>
-                <span>Total Portfolio Value: {totalValue}</span>
+            <div className="col-lg-8 col-lg-offset-2">
+                <div className="row">
+                <div className="col-lg-8 col-lg-offset-2 text-center">
+                    <h2>Portfolio <b>&beta;</b>: {weightedBetaRounded}</h2>
+                    <h2>Portfolio Value: {totalValue} $</h2>
+                </div>
                 <AssetLst updateAsset={this.updateAsset} deleteAsset={this.deleteAsset} addAsset={this.addAsset} assets={this.state.assets}/>
+                </div>
             </div>
     ); }
 });
@@ -157,16 +161,15 @@ var AssetLst = React.createClass({
         });
         var newAssetCode = this.state.newAssetCode;
         return (
-            <div>
+            <div className = "appcontent">
                 <form onSubmit={this.handleSubmit}>
-                  <label>Input asset</label>
-                  <input type="text" value={newAssetCode} onChange={this.updateNewAsset} />
-                  <button type="submit">Add Asset</button>
+                  
+                  <label for="addAsset">Asset name: </label>&nbsp;<input id="addAsset" type="text" value={newAssetCode} onChange={this.updateNewAsset} />&nbsp;<button type="submit">Add Asset</button>
+                  
                 </form>
                 <ul>
                   {assetNodes}
                 </ul>
-
            </div>
         );
     }
@@ -189,7 +192,7 @@ var Asset = React.createClass({
         if (this.props.asset.error === true) {
             return (<div>
                     <h4>
-                     {this.props.asset.assetName}
+                     {this.props.asset.assetName}: &beta; = {this.props.asset.beta}
                     </h4>
                       ERROR: "{this.props.asset.assetName}" is an invalid asset code.
                     <button onClick={this.handleDelete}>Delete</button>
@@ -203,27 +206,29 @@ var Asset = React.createClass({
                     <button onClick={this.handleDelete}>Delete</button>
                     </div>);
         } else {
-            var stockVal = this.props.asset.assetPrice * this.props.asset.stockNum;
+            var stockVal = this.props.asset.assetPrice;
+            var stockBeta = Math.round(this.props.asset.beta*100)/100;
             return(
                 <div>
                   <h4>
-                    {this.props.asset.assetName}
+                    {this.props.asset.assetName}: &beta; = {stockBeta}
                   </h4>
-
-                    <input type="number" value={this.state.stockNum} onChange={this.updateStockNum} />
-                    <span>Beta for asset: {this.props.asset.beta}</span>
-                    <span>Alpha for asset: {this.props.asset.alpha}</span>
-                    <span>Stock value is: {stockVal}</span>
-                    <button onClick={this.handleDelete}>Delete</button>
+                    <span>
+                        <input type="number" value={this.state.stockNum} onChange={this.updateStockNum}/>&nbsp;&#215;&nbsp;({stockVal}$)&nbsp;<button id="deleteButton" onClick={this.handleDelete}>Delete</button>
+                    </span>
                 </div>
             );
         }
     }
 });
 
+
+
+
 var routes = (
         <Route name="app" path="/" handler={App}>
           <Route name="alphabeta" path="alphabeta" handler={AlphaBeta}/>
+          <Redirect from="/" to="alphabeta" />
         </Route>
 );
 
