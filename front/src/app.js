@@ -46,7 +46,7 @@ var AlphaBeta = React.createClass({
     addAsset: function(newAssetCode) {
         var assetArray = this.state.assets.slice();
         var uuid = this.uuid();
-        var asset = {assetName: newAssetCode, key: uuid, beta: null, alpha: null, stockNum: 1, assetPrice: null, loading: false};
+        var asset = {assetName: newAssetCode, key: uuid, beta: null, alpha: null, stockNum: 1, assetPrice: null, loading: false, error: false};
         assetArray.push(asset);
         this.setState({assets: assetArray}, function() {
             this.calcAsset(asset);
@@ -69,6 +69,10 @@ var AlphaBeta = React.createClass({
                                      asset.loading = false;
                                      self.updateAsset(asset);
                                  }
+                             })
+                             .error(function() {
+                                 asset.error = true;
+                                 self.updateAsset(asset);
                              })
                             );
             asset.loading = true;
@@ -165,7 +169,15 @@ var Asset = React.createClass({
     },
     render: function () {
         console.log(this.props);
-        if (this.props.asset.loading === true) {
+        if (this.props.asset.error === true) {
+            return (<div>
+                    <h4>
+                     {this.props.asset.assetName}
+                    </h4>
+                      ERROR: "{this.props.asset.assetName}" is an invalid asset code.
+                    <button onClick={this.handleDelete}>Delete</button>
+                    </div>);
+        } else if (this.props.asset.loading === true) {
             return (<div>
                     <h4>
                       {this.props.asset.assetName}

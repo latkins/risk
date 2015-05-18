@@ -92,7 +92,7 @@
 	    addAsset: function(newAssetCode) {
 	        var assetArray = this.state.assets.slice();
 	        var uuid = this.uuid();
-	        var asset = {assetName: newAssetCode, key: uuid, beta: null, alpha: null, stockNum: 1, assetPrice: null, loading: false};
+	        var asset = {assetName: newAssetCode, key: uuid, beta: null, alpha: null, stockNum: 1, assetPrice: null, loading: false, error: false};
 	        assetArray.push(asset);
 	        this.setState({assets: assetArray}, function() {
 	            this.calcAsset(asset);
@@ -115,6 +115,10 @@
 	                                     asset.loading = false;
 	                                     self.updateAsset(asset);
 	                                 }
+	                             })
+	                             .error(function() {
+	                                 asset.error = true;
+	                                 self.updateAsset(asset);
 	                             })
 	                            );
 	            asset.loading = true;
@@ -211,7 +215,15 @@
 	    },
 	    render: function () {
 	        console.log(this.props);
-	        if (this.props.asset.loading === true) {
+	        if (this.props.asset.error === true) {
+	            return (React.createElement("div", null, 
+	                    React.createElement("h4", null, 
+	                     this.props.asset.assetName
+	                    ), 
+	                      "ERROR: \"", this.props.asset.assetName, "\" is an invalid asset code.", 
+	                    React.createElement("button", {onClick: this.handleDelete}, "Delete")
+	                    ));
+	        } else if (this.props.asset.loading === true) {
 	            return (React.createElement("div", null, 
 	                    React.createElement("h4", null, 
 	                      this.props.asset.assetName
