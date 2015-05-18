@@ -2,12 +2,12 @@ import numpy as np
 from datetime import datetime
 import Quandl
 import pandas as pd
-import sqlite3
-from mkTables import getStocks 
+
 
 assetSuffix = "_asset"
-conn = sqlite3.connect('stocks.sql', detect_types=sqlite3.PARSE_DECLTYPES)
 ##Testing
+#import sqlite3
+#from mkTables import getStocks 
 #testAsset = getStocks(conn, "WIKI/ACT")
 #testBench = getStocks(conn, "WIKI/AEE")
 #testAsset = testAsset["adj_close"]
@@ -22,17 +22,18 @@ def calcAlphaBeta(asset, bench, start=None, end=None):
     if start is None:
         start = datetime.today()
         start = start.replace(year=start.year-1)
-
     #this is so as to have the same indexing for the rdiff arrays.
+    print(asset[0:5])
     rDiffA = asset.copy(deep=True)
     rDiffB = bench.copy(deep=True)
     
+
     #calculate rDiff
     for i in range(1,asset.shape[0]):
         rDiffA[i] = (asset[(i)]-asset[i-1]) / asset[i-1]
     for i in range(1,bench.shape[0]):
         rDiffB[i] = (bench[(i)]-bench[i-1]) / bench[i-1]
-        
+
     #only look at relevant time frame
     rDiffA = rDiffA.ix[start:end]
     rDiffB = rDiffB.ix[start:end]
