@@ -24,8 +24,8 @@ def calcBeta():
     benchName = request.args.get('benchName')
     start = request.args.get('start')
     end = request.args.get('end')
-    #get data from database 
-    try: 
+    #get data from database
+    try:
         asset = getStocks(conn, assetName)
         bench = getStocks(conn, benchName)
     except sqlite3.Error as e:
@@ -48,11 +48,11 @@ def getPrice():
         date = datetime.today()
 
     print(date,date,date)
-    #get data from database 
-    try: 
+    #get data from database
+    try:
         asset = getStocks(conn, assetName)
         pr = asset["adj_close"]
-        resp = jsonify({'asset_price': float(pr.asof(date))})
+        resp = jsonify({'message': 'ok', 'data': {'asset_price': float(pr.asof(date))}})
     except sqlite3.Error as e:
         print "An sql error occurred in getting the stock price: ", e.args[0]
         pr=jsonify(errorResp)
