@@ -87,55 +87,54 @@
 				  return uuid;
 			},
 	    getInitialState: function() {
-	        return ({ benchCode: "WIKI/AAE", assets: [] });
+	        return ({ benchCode: "WIKI/AEE", assets: [] });
 	    },
 	    addAsset: function(newAssetCode) {
 	        var assetArray = this.state.assets.slice();
 	        var uuid = this.uuid();
-	        var asset = {assetName: newAssetCode, key: uuid, beta: null, alpha: null, stockNum: 1, lastStockVal: null, loading: false};
+	        var asset = {assetName: newAssetCode, key: uuid, beta: null, alpha: null, stockNum: 1, assetPrice: null, loading: false};
 	        assetArray.push(asset);
 	        this.setState({assets: assetArray}, function() {
 	            this.calcAsset(asset);
 	        });
-	        console.log(this.state.state);
-	        console.log(assetArray);
 	    },
 	    calcAsset: function(asset) {
 	        if (asset !== null) {
 	            asset.loading = true;
 	            var self = this;
+	            var query = { assetName: asset.assetName, benchName: this.state.benchCode};
 	            this.updateAsset(asset,
-	                             // $.getJSON(url, query, function(result) {
-	                             //     if (!result || !result.data) {
-	                             //         console.log(result);
-	                             //         console.log("Oh shit.");
-	                             //     } else {
-	                             //         var alpha = Number(result.data.alpha);
-	                             //         var beta = Number(result.data.beta);
-	                             //         self.setState({alpha: alpha, beta:beta});
-	                             //         console.log(self.state.alpha);
-	                             //         console.log(self.state.beta);
-	                             //     }
-	                             // });
-
-	                             setTimeout(function(){
-	                                 var benchCode = self.state.benchCode;
-	                                 var alpha = 1;
-	                                 var beta = 1;
-	                                 var lastStockVal = 1;
-	                                 asset.alpha = alpha;
-	                                 asset.beta = beta;
-	                                 asset.lastStockVal = 1;
-	                                 asset.loading=false;
-	                                 self.updateAsset(asset);
-	                             }, 2000)
+	                             $.getJSON("/calc_beta", query, function(result) {
+	                                 if (!result || !result.data) {
+	                                     console.log("Oh shit.");
+	                                 } else {
+	                                     var alpha = Number(result.data.alpha);
+	                                     var beta = Number(result.data.beta);
+	                                     asset.beta = beta;
+	                                     asset.alpha = alpha;
+	                                     asset.loading = false;
+	                                     self.updateAsset(asset);
+	                                 }
+	                             })
+	                            );
+	            asset.loading = true;
+	            this.updateAsset(asset,
+	                             $.getJSON("/asset_price", query, function(result) {
+	                                 if (!result || !result.data) {
+	                                     console.log("Oh shit.");
+	                                 } else {
+	                                     var assetPrice = Number(result.data.asset_price);
+	                                     asset.assetPrice = assetPrice;
+	                                     asset.loading = false;
+	                                     self.updateAsset(asset);
+	                                 }
+	                             })
 	                            );
 	        } else {
 	            console.error("Didn't calculate asset.");
 	        }
 	    },
 	    updateAsset: function(asset, callback) {
-	        console.log("updating asset");
 	        var assetArray = this.state.assets.slice();
 	        var idx = _.findIndex(assetArray, { key: asset.key });
 	        if (idx) {
@@ -146,6 +145,11 @@
 	        } else {
 	            this.setState({assets: assetArray});
 	        }
+	    },
+	    deleteAsset: function(asset) {
+	        var assetArray = this.state.assets.slice();
+	        var newAr = _.reject(assetArray, function(item) { return item.key === asset.key; });
+	        this.setState({assets: newAr});
 	    },
 	    updateBenchmark: function (event) {
 	        this.setState({benchCode: event.target.value});
@@ -159,7 +163,7 @@
 	                React.createElement("input", {type: "text", value: benchCode, onChange: this.updateBenchmark})
 	              ), 
 	                React.createElement("hr", null), 
-	                React.createElement(AssetLst, {addAsset: this.addAsset, assets: this.state.assets})
+	                React.createElement(AssetLst, {deleteAsset: this.deleteAsset, addAsset: this.addAsset, assets: this.state.assets})
 	            )
 	    ); }
 	});
@@ -180,8 +184,9 @@
 	        }
 	    },
 	    render: function() {
+	        var self = this;
 	        var assetNodes = this.props.assets.map(function(a){
-	            return(React.createElement("li", null, React.createElement(Asset, {asset: a})));
+	            return(React.createElement("li", null, React.createElement(Asset, {deleteAsset: self.props.deleteAsset, asset: a})));
 	        });
 	        var newAssetCode = this.state.newAssetCode;
 	        return (
@@ -201,16 +206,21 @@
 	});
 
 	var Asset = React.createClass({displayName: "Asset",
+	    handleDelete: function () {
+	        this.props.deleteAsset(this.props.asset);
+	    },
 	    render: function () {
+	        console.log(this.props);
 	        if (this.props.asset.loading === true) {
 	            return (React.createElement("div", null, 
 	                    React.createElement("h4", null, 
 	                      this.props.asset.assetName
 	                    ), 
-	                    "Loading.."
+	                    "Loading..", 
+	                    React.createElement("button", {onClick: this.handleDelete}, "Delete")
 	                    ));
 	        } else {
-	            var stockVal = this.props.asset.lastStockVal * this.props.asset.stockNum;
+	            var stockVal = this.props.asset.assetPrice * this.props.asset.stockNum;
 	            return(
 	                React.createElement("div", null, 
 	                  React.createElement("h4", null, 
@@ -219,72 +229,13 @@
 
 	                    React.createElement("span", null, "Beta for asset: ", this.props.asset.beta), 
 	                    React.createElement("span", null, "Alpha for asset: ", this.props.asset.alpha), 
-	                    React.createElement("span", null, "Stock value is: ", stockVal)
+	                    React.createElement("span", null, "Stock value is: ", stockVal), 
+	                    React.createElement("button", {onClick: this.handleDelete}, "Delete")
 	                )
 	            );
 	        }
 	    }
 	});
-	// var Asset = React.createClass({
-	//     getInitialState: function() {
-	//         return {assetName: ""};
-	//     },
-	//     assetNameChange: function(event) {
-	//         this.setState({assetName: event.target.value});
-	//     },
-	//     assetColChange: function(event) {
-	//         this.setState({assetCol: event.target.value});
-	//     },
-	//     handleSubmit: function(e) {
-	//         console.log(this.state);
-	//         e.preventDefault();
-	//         var url = "http://localhost:5000/calc_beta";
-	//         var query = { assetName: this.state.assetName
-	//                       , benchName: this.props.benchName
-	//                       , benchCol: this.props.benchCol};
-	//         var self = this;
-	//         console.log(query);
-	//         $.getJSON(url, query, function(result) {
-	//             if (!result || !result.data) {
-	//                 console.log(result);
-	//                 console.log("Oh shit.");
-	//             } else {
-	//                 var alpha = Number(result.data.alpha);
-	//                 var beta = Number(result.data.beta);
-	//                 self.setState({alpha: alpha, beta:beta});
-	//                 console.log(self.state.alpha);
-	//                 console.log(self.state.beta);
-	//             }
-	//         });
-
-	//     },
-	//     render: function () {
-	//         var assetName = this.state.assetName;
-	//         var benchName = this.state.benchName;
-	//         return (
-
-	//                 <div className="app">
-
-	//                 <div className="container-fluid">
-	//                 <div className="row">
-	//                 <div className="col-md-10 col-md-offset-1">
-
-	//                 <form ref="form" onSubmit={this.handleSubmit}>
-	//                 <input type="text" value={assetName} onChange={this.assetNameChange} />
-	//                 <input type="text" value={benchName} onChange={this.benchNameChange} />
-
-	//                 <button type="submit">Do the thing</button>
-	//                 </form>
-	//                 <RouteHandler/>
-	//                 </div>
-	//                 </div>
-	//                 </div>
-	//                 </div>
-	//         );
-	//     }
-	// });
-
-
 
 	var routes = (
 	        React.createElement(Route, {name: "app", path: "/", handler: App}, 
