@@ -16,6 +16,11 @@ input {
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
 }
 
+ul
+{
+    list-style-type: none;
+}
+
 table {
     background-color: #eee;
     width: 100%;
@@ -39,7 +44,7 @@ thead > tr, tbody{
 
 .app {
     padding: 15px 0;
-    background-color:#eee;
+    background-color:#ggg;
     display: block;
     position: relative;
     margin: 5 auto;
@@ -148,7 +153,9 @@ aside {
 .no-padding {
     padding: 0;
 }
-
+.small-padding {
+    padding: 0.10;
+}
 .navbar-default {
     border-color: rgba(34,34,34,.05);
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
@@ -406,7 +413,7 @@ header .header-content .header-content-inner p {
 .btn-default {
     border-color: #fff;
     color: #222;
-    background-color: #fff;
+    background-color:#fff;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
