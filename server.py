@@ -25,7 +25,6 @@ def calcBeta():
     start = request.args.get('start')
     end = request.args.get('end')
     #get data from database
-<<<<<<< HEAD
     try:
         asset = getStocks(conn, assetName)
         bench = getStocks(conn, benchName)
@@ -34,16 +33,6 @@ def calcBeta():
         resp = jsonify(errorResp)
     #calculate alpha and beta
     try:
-=======
-    try:
-        asset = getStocks(conn, assetName)
-        bench = getStocks(conn, benchName)
-    except sqlite3.Error as e:
-        print "An SQL error occurred:", e.args[0]
-        resp = jsonify(errorResp)
-    #calculate alpha and beta
-    try:
->>>>>>> 3e183d2b79b009ada617ad7d84313dbf23119058
         (alpha, beta) = calcAlphaBeta(asset["adj_close"], bench["adj_close"], start, end)
         resp = jsonify({'data' : {'alpha' : float(alpha), 'beta' : float(beta)}, 'message' : "ok"})
     except DatasetNotFound as e:
@@ -65,13 +54,8 @@ def getPrice():
         pr = asset["adj_close"]
         resp = jsonify({'message': 'ok', 'data': {'asset_price': float(pr.asof(date))}})
     except sqlite3.Error as e:
-<<<<<<< HEAD
         print("An sql error occurred in getting the stock price: {}".format(e))
         resp=jsonify(errorResp)
-=======
-        print "An sql error occurred in getting the stock price: ", e.args[0]
-        pr=jsonify(errorResp)
->>>>>>> 3e183d2b79b009ada617ad7d84313dbf23119058
     return(resp)
 
 
