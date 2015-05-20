@@ -145,6 +145,7 @@ var AssetLst = React.createClass({
         return({newAssetCode: ""});
     },
     updateNewAsset: function(event) {
+        event.preventDefault();
         this.setState({newAssetCode: event.target.value});
     },
     handleSubmit: function(event) {
