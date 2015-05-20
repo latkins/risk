@@ -251,12 +251,12 @@
 	        if (this.props.asset.error === true) {
 	            return (
 	                    React.createElement("div", {className: "row"}, 
-	                    React.createElement("div", {className: "col-lg-6"}, 
+	                    React.createElement("div", {className: "col-lg-7"}, 
 
 	                    React.createElement("p", null, "Invalid asset: \"", this.props.asset.assetName, "\" "
 	                    )
 	                    ), 
-	                    React.createElement("div", {className: "col-lg-2 text-right"}, 
+	                    React.createElement("div", {className: "col-lg-1 text-right"}, 
 	                    React.createElement("button", {className: "btn btn-small", onClick: this.handleDelete}, "Del")
 	                    )
 	                    )
@@ -279,7 +279,7 @@
 	                    React.createElement("div", {className: "col-lg-4"}, 
 	                    React.createElement("p", null, " ", this.props.asset.assetName, " (β=", stockBeta, "), quantity: ")
 	                    ), 
-	                    React.createElement("div", {className: "col-lg-2"}, 
+	                    React.createElement("div", {className: "col-lg-3"}, 
 	                    React.createElement("form", {className: "form-inline"}, 
 	                    React.createElement("div", {className: "form-group"}, 
 	                    React.createElement("label", {className: "sr-only"}, this.props.asset.assetName), 
@@ -290,7 +290,7 @@
 	                    )
 	                    )
 	                    ), 
-	                    React.createElement("div", {className: "col-lg-2 text-right"}, 
+	                    React.createElement("div", {className: "col-lg-1 text-right"}, 
 	                    React.createElement("button", {className: "btn btn-small", onClick: this.handleDelete}, "Del")
 	                    )
 	                    )

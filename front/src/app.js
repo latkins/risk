@@ -205,12 +205,12 @@ var Asset = React.createClass({
         if (this.props.asset.error === true) {
             return (
                     <div className="row">
-                    <div className="col-lg-6">
+                    <div className="col-lg-7">
 
                     <p>Invalid asset: "{this.props.asset.assetName}"&nbsp;
                     </p>
                     </div>
-                    <div className="col-lg-2 text-right">
+                    <div className="col-lg-1 text-right">
                     <button className="btn btn-small" onClick={this.handleDelete}>Del</button>
                     </div>
                     </div>
@@ -233,7 +233,7 @@ var Asset = React.createClass({
                     <div className="col-lg-4">
                     <p> {this.props.asset.assetName} (&beta;={stockBeta}), quantity: </p>
                     </div>
-                    <div className="col-lg-2">
+                    <div className="col-lg-3">
                     <form className="form-inline">
                     <div className="form-group">
                     <label className="sr-only" >{this.props.asset.assetName}</label>
@@ -244,7 +244,7 @@ var Asset = React.createClass({
                     </div>
                     </form>
                     </div>
-                    <div className="col-lg-2 text-right">
+                    <div className="col-lg-1 text-right">
                     <button className="btn btn-small" onClick={this.handleDelete}>Del</button>
                     </div>
                     </div>
