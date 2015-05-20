@@ -7,7 +7,6 @@ def mkTables(conn):
     c.execute(u"CREATE TABLE stockname ( quandlcode TEXT PRIMARY KEY , name TEXT)")
     c.execute(u"CREATE TABLE quandldata ( quandlcode TEXT , date TIMESTAMP , open REAL , high REAL , low REAL , close REAL , volume REAL , ex_dividend REAL , split_ratio REAL , adj_open REAL , adj_high REAL , adj_low REAL , adj_close REAL , adj_volume REAL , PRIMARY KEY (quandlcode, date), FOREIGN KEY(quandlcode) REFERENCES stockname(quandlcode))")
 
-
 def insertQuandlCodeName(conn, code, name):
     c = conn.cursor()
     c.execute(u"INSERT OR IGNORE INTO stockname VALUES (?, ?)", (code,name))
