@@ -203,32 +203,37 @@ var Asset = React.createClass({
     },
     render: function () {
         if (this.props.asset.error === true) {
-            return (<form className="form-inline">
-                    <div className="form-group">
-                    <label >
-                    Invalid Asset: "{this.props.asset.assetName}"&nbsp;
-                    </label>
+            return (
+                    <div className="row">
+                    <div className="col-lg-6">
+
+                    <p>Invalid Asset: "{this.props.asset.assetName}"&nbsp;
+                    </p>
+                    </div>
+                    <div classame="col-lg-2 text-right">
                     <button className="btn btn-small" onClick={this.handleDelete}>Del</button>
                     </div>
-                    </form>
+                    </div>
                    )
         } else if (this.props.asset.loading === true) {
-            return (<div className="form-group form-group-sm">
+            return (<div className="row">
+                    <div className="col-lg-8 text-center">
                     <h4>
                       {this.props.asset.assetName}
                     </h4>
                     Loading...
+                    </div>
                     </div>
                    );
         } else {
             var stockVal = this.props.asset.assetPrice;
             var stockBeta = Math.round(this.props.asset.beta*100)/100;
             return(
-                    <ul className="list-inline">
-                    <li>
+                    <div className="row">
+                    <div className="col-lg-4">
                     <p> {this.props.asset.assetName} (&beta;={stockBeta}), quantity: </p>
-                    </li>
-                    <li>
+                    </div>
+                    <div className="col-lg-2">
                     <form className="form-inline">
                     <div className="form-group">
                     <label className="sr-only" >{this.props.asset.assetName}</label>
@@ -238,11 +243,11 @@ var Asset = React.createClass({
                     </div>
                     </div>
                     </form>
-                    </li>
-                    <li>
+                    </div>
+                    <div className="col-lg-2 text-right">
                     <button className="btn btn-small" onClick={this.handleDelete}>Del</button>
-                    </li>
-                    </ul>
+                    </div>
+                    </div>
            );
         }
     }
