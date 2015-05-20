@@ -174,12 +174,14 @@ var AssetLst = React.createClass({
 
 var Asset = React.createClass({
     getInitialState: function() {
-        return({stockNum: this.props.asset.stockNum});
+        return({stockNum: 1});
     },
-    handleDelete: function () {
+    handleDelete: function (event) {
+        event.preventDefault();
         this.props.deleteAsset(this.props.asset);
     },
     updateStockNum: function (event) {
+        event.preventDefault();
         var asset = this.props.asset;
         this.setState({stockNum: event.target.value});
         asset.stockNum = event.target.value;
