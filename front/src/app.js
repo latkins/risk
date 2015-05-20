@@ -7,11 +7,8 @@ var _ = require('underscore');
 var App = React.createClass({
     render: function () {
         return (
-
                 <div className="container">
-                <div className="col-lg-8 col-lg-offset-2">
                 <RouteHandler/>
-                </div>
                 </div>
         );
     }
@@ -127,16 +124,20 @@ var AlphaBeta = React.createClass({
             }
         }
         return(
-            <div className="col-lg-8 col-lg-offset-2">
+            <div>
                 <div className="row">
-                <div className="col-lg-8 col-lg-offset-2 text-center">
-                    <h2>Portfolio <b>&beta;</b>: {weightedBetaRounded}</h2>
-                    <h2>Portfolio Value: {totalValue} $</h2>
+                   <div className="col-lg-5 col-lg-offset-4 text-left">
+                        <h2>Portfolio BETA: {weightedBetaRounded}</h2>
+                        <h2>Portfolio Value: {totalValue}&nbsp;$</h2>
+                   </div>
                 </div>
-                <AssetLst updateAsset={this.updateAsset} deleteAsset={this.deleteAsset} addAsset={this.addAsset} assets={this.state.assets}/>
+                <div className="row">
+                   <div className="col-lg-8 col-lg-offset-2 text-left">
+                      <AssetLst updateAsset={this.updateAsset} deleteAsset={this.deleteAsset} addAsset={this.addAsset} assets={this.state.assets}/>
+                   </div>
                 </div>
             </div>
-    ); }
+        ); }
 });
 
 var AssetLst = React.createClass({
@@ -157,20 +158,29 @@ var AssetLst = React.createClass({
     render: function() {
         var self = this;
         var assetNodes = this.props.assets.map(function(a){
-            return(<li><Asset updateAsset={self.props.updateAsset} deleteAsset={self.props.deleteAsset} asset={a} /></li>);
+            return(<li>
+                   <Asset updateAsset={self.props.updateAsset} deleteAsset={self.props.deleteAsset} asset={a} />
+                   </li>
+                   );
         });
         var newAssetCode = this.state.newAssetCode;
         return (
-            <div className = "appcontent">
-                <form onSubmit={this.handleSubmit}>
-                  
-                  <label for="addAsset">Asset name: </label>&nbsp;<input id="addAsset" type="text" value={newAssetCode} onChange={this.updateNewAsset} />&nbsp;<button type="submit">Add Asset</button>
-                  
-                </form>
-                <ul>
-                  {assetNodes}
-                </ul>
-           </div>
+                <div>
+                   <div className="row">
+                      <div className="col-lg-6 col-lg-offset-3 text-left">
+                         <form className="form-inline" onSubmit={this.handleSubmit}>
+                         <input className="form-control" placeholder="Asset name" type="text" value={newAssetCode} onChange={this.updateNewAsset}/>
+                         <button className="btn btn-default" type="submit">Add</button></form>
+                      </div>
+                   </div>
+                <div className="row">
+                   <div className="col-lg-6 col-lg-offset-2">
+                      <ul>
+                         {assetNodes}
+                      </ul>
+                   </div>
+                   </div>
+                </div>
         );
     }
 });
@@ -192,30 +202,47 @@ var Asset = React.createClass({
         if (this.props.asset.error === true) {
             return (<div>
                     <h4>
-                     {this.props.asset.assetName}: &beta; = {this.props.asset.beta}
                     </h4>
-                      ERROR: "{this.props.asset.assetName}" is an invalid asset code.
-                    <button onClick={this.handleDelete}>Delete</button>
+                    ERROR: "{this.props.asset.assetName}" is an invalid asset code.
+                    <form className="form-inline" role="form">
+                       <div className="form-group">
+                         <button className="btn btn-small" onClick={this.handleDelete}><b>X</b></button>
+                         <input type="number" value={this.state.stockNum} onChange={this.updateStockNum}/>
+                       </div>
+                    </form>
                     </div>);
         } else if (this.props.asset.loading === true) {
             return (<div>
                     <h4>
                       {this.props.asset.assetName}
                     </h4>
-                    Loading..
-                    <button onClick={this.handleDelete}>Delete</button>
+                    Loading...
+
+                    <form className="form-inline" role="form">
+                       <div className="form-group">
+                         <button className="btn btn-small" onClick={this.handleDelete}><b>X</b></button>
+                         <input type="number" value={this.state.stockNum} onChange={this.updateStockNum}/>
+                       </div>
+                    </form>
                     </div>);
         } else {
             var stockVal = this.props.asset.assetPrice;
             var stockBeta = Math.round(this.props.asset.beta*100)/100;
             return(
-                <div>
-                  <h4>
+                  <div className="form-group">
+                   <h4>
                     {this.props.asset.assetName}: &beta; = {stockBeta}
-                  </h4>
+                </h4>
+                    <form className="form-inline" role="form">
+                       <div className="form-group">
                     <span>
-                        <input type="number" value={this.state.stockNum} onChange={this.updateStockNum}/>&nbsp;&#215;&nbsp;({stockVal}$)&nbsp;<button id="deleteButton" onClick={this.handleDelete}>Delete</button>
+                    <button className="btn btn-small" onClick={this.handleDelete}><b>X</b></button>
+                    <input type="number" value={this.state.stockNum} onChange={this.updateStockNum}/>
+                    &nbsp;&#215;&nbsp;{stockVal}$
                     </span>
+                    
+                </div>
+                    </form>
                 </div>
             );
         }
