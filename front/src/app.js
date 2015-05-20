@@ -132,7 +132,7 @@ var AlphaBeta = React.createClass({
                    </div>
                 </div>
                 <div className="row">
-                   <div className="col-lg-8 col-lg-offset-2 text-left">
+                   <div className="col-lg-10 col-lg-offset-2 text-left small-padding">
                       <AssetLst updateAsset={this.updateAsset} deleteAsset={this.deleteAsset} addAsset={this.addAsset} assets={this.state.assets}/>
                    </div>
                 </div>
@@ -167,18 +167,18 @@ var AssetLst = React.createClass({
         return (
                 <div>
                    <div className="row">
-                      <div className="col-lg-6 col-lg-offset-3 text-left">
+                      <div className="col-lg-9 col-lg-offset-3 text-left">
                          <form className="form-inline" onSubmit={this.handleSubmit}>
                          <input className="form-control" placeholder="Asset name" type="text" value={newAssetCode} onChange={this.updateNewAsset}/>
-                         <button className="btn btn-default" type="submit">Add</button></form>
+                         <button className="btn btn-primary" type="submit">Add</button></form>
                       </div>
                    </div>
-                <div className="row">
-                   <div className="col-lg-6 col-lg-offset-2">
+                <div className="row text-left">
+                <section className="small-padding">
                       <ul>
                          {assetNodes}
                       </ul>
-                   </div>
+                </section>
                    </div>
                 </div>
         );
@@ -200,51 +200,47 @@ var Asset = React.createClass({
     },
     render: function () {
         if (this.props.asset.error === true) {
-            return (<div>
-                    <h4>
-                    </h4>
-                    ERROR: "{this.props.asset.assetName}" is an invalid asset code.
-                    <form className="form-inline" role="form">
-                       <div className="form-group">
-                         <button className="btn btn-small" onClick={this.handleDelete}><b>X</b></button>
-                         <input type="number" value={this.state.stockNum} onChange={this.updateStockNum}/>
-                       </div>
+            return (<form className="form-inline">
+                    <div className="form-group">
+                    <label >
+                    Invalid Asset: "{this.props.asset.assetName}"&nbsp;
+                    </label>
+                    <button className="btn btn-small" onClick={this.handleDelete}>Del</button>
+                    </div>
                     </form>
-                    </div>);
+                   )
         } else if (this.props.asset.loading === true) {
-            return (<div>
+            return (<div className="form-group form-group-sm">
                     <h4>
                       {this.props.asset.assetName}
                     </h4>
                     Loading...
-
-                    <form className="form-inline" role="form">
-                       <div className="form-group">
-                         <button className="btn btn-small" onClick={this.handleDelete}><b>X</b></button>
-                         <input type="number" value={this.state.stockNum} onChange={this.updateStockNum}/>
-                       </div>
-                    </form>
-                    </div>);
+                    </div>
+                   );
         } else {
             var stockVal = this.props.asset.assetPrice;
             var stockBeta = Math.round(this.props.asset.beta*100)/100;
             return(
-                  <div className="form-group">
-                   <h4>
-                    {this.props.asset.assetName}: &beta; = {stockBeta}
-                </h4>
-                    <form className="form-inline" role="form">
-                       <div className="form-group">
-                    <span>
-                    <button className="btn btn-small" onClick={this.handleDelete}><b>X</b></button>
-                    <input type="number" value={this.state.stockNum} onChange={this.updateStockNum}/>
-                    &nbsp;&#215;&nbsp;{stockVal}$
-                    </span>
-                    
-                </div>
+                    <ul className="list-inline">
+                    <li>
+                    <p> {this.props.asset.assetName} (&beta;={stockBeta}), quantity: </p>
+                    </li>
+                    <li>
+                    <form className="form-inline">
+                    <div className="form-group">
+                    <label className="sr-only" >{this.props.asset.assetName}</label>
+                    <div className="input-group">
+                                        <input type="number" className="form-control" value={this.state.stockNum} onChange={this.updateStockNum}/>
+                    <div className="input-group-addon">&nbsp;&#215;{stockVal}$</div>
+                    </div>
+                    </div>
                     </form>
-                </div>
-            );
+                    </li>
+                    <li>
+                    <button className="btn btn-small" onClick={this.handleDelete}>Del</button>
+                    </li>
+                    </ul>
+           );
         }
     }
 });
