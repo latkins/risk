@@ -207,10 +207,10 @@ var Asset = React.createClass({
                     <div className="row">
                     <div className="col-lg-6">
 
-                    <p>Invalid Asset: "{this.props.asset.assetName}"&nbsp;
+                    <p>Invalid asset: "{this.props.asset.assetName}"&nbsp;
                     </p>
                     </div>
-                    <div classame="col-lg-2 text-right">
+                    <div className="col-lg-2 text-right">
                     <button className="btn btn-small" onClick={this.handleDelete}>Del</button>
                     </div>
                     </div>
