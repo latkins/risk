@@ -172,17 +172,37 @@
 	        return(
 	            React.createElement("div", null, 
 	                React.createElement("div", {className: "row"}, 
-	                React.createElement("h2", null, 
-	                React.createElement("div", {className: "col-xs-3 col-xs-offset-3"}, 
-	                "Portfolio BETA: ", weightedBetaRounded
+	                React.createElement("h2", null, " Portfolio statistics "), 
+	                React.createElement("div", {className: "col-lg-8 col-lg-offset-3 small-padding"}, 
+	                React.createElement("dl", {className: "dl-horizontal"}, 
+	                React.createElement("dt", null, 
+	                React.createElement("h4", null, 
+	                "Value:"
+	                )
+	            ), 
+	                React.createElement("dd", null, 
+	                totalValue, " $"
+	            ), 
+	                React.createElement("dt", null, 
+	                React.createElement("h4", null, 
+	                "Beta:"
+	                )
 	                ), 
-	                React.createElement("div", {className: "col-xs-4 "}, 
-	                "Value: ", totalValue, " $"
+	                React.createElement("dd", null, 
+	                weightedBetaRounded
+	                ), 
+	                React.createElement("dt", null, 
+	                React.createElement("h4", null, 
+	                "Risk:"
+	                )
+	            ), 
+	                React.createElement("dd", null, 
+	                Math.random()
 	            )
+	                )
 	                )
 	                ), 
 	                React.createElement("div", {className: "row"}, 
-
 	                   React.createElement("div", {className: "col-lg-12 text-left "}, 
 	                      React.createElement(AssetLst, {updateAsset: this.updateAsset, deleteAsset: this.deleteAsset, addAsset: this.addAsset, assets: this.state.assets})
 	                   )
@@ -269,7 +289,7 @@
 	                   )
 	        } else if (this.props.asset.loading === true) {
 	            return (React.createElement("div", {className: "row"}, 
-	                    React.createElement("div", {className: "col-lg-8 text-center"}, 
+	                    React.createElement("div", {className: "text-center"}, 
 	                    React.createElement("h4", null, 
 	                      this.props.asset.assetName
 	                    ), 
@@ -282,24 +302,27 @@
 	            var stockBeta = Math.round(this.props.asset.beta*100)/100;
 	            return(
 	                    React.createElement("div", {className: "row"}, 
-	                    React.createElement("div", {className: "col-lg-4"}, 
+	                    React.createElement("dl", {className: "dl-horizontal"}, 
+	                    React.createElement("dt", null, 
 	                    React.createElement("p", null, " ", this.props.asset.assetName, " (β=", stockBeta, "), quantity: ")
 	                    ), 
-	                    React.createElement("div", {className: "col-lg-3"}, 
+	                    React.createElement("dd", null, 
 	                    React.createElement("form", {className: "form-inline"}, 
 	                    React.createElement("div", {className: "form-group"}, 
-	                    React.createElement("label", {className: "sr-only"}, this.props.asset.assetName), 
+	                    React.createElement("label", {className: "sr-only"}, " ", this.props.asset.assetName, " "), 
 	                    React.createElement("div", {className: "input-group"}, 
-	                                        React.createElement("input", {type: "number", className: "form-control", value: this.state.stockNum, onChange: this.updateStockNum}), 
-	                    React.createElement("div", {className: "input-group-addon"}, " ×", stockVal, "$")
+	                    React.createElement("input", {type: "number", className: "form-control", value: this.state.stockNum, onChange: this.updateStockNum}), 
+	                    React.createElement("div", {className: "input-group-addon"}, "  × ", stockVal, "$")
 	                    )
 	                    )
 	                    )
 	                    ), 
-	                    React.createElement("div", {className: "col-lg-1 text-right"}, 
+	                    React.createElement("dd", null, 
 	                    React.createElement("button", {className: "btn btn-small", onClick: this.handleDelete}, "Del")
 	                    )
 	                    )
+
+	                   )
 	           );
 	        }
 	    }

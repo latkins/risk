@@ -126,17 +126,37 @@ var AlphaBeta = React.createClass({
         return(
             <div>
                 <div className="row">
-                <h2>
-                <div className="col-xs-3 col-xs-offset-3">
-                Portfolio BETA: {weightedBetaRounded}
+                <h2> Portfolio statistics </h2>
+                <div className="col-lg-8 col-lg-offset-3 small-padding">
+                <dl className="dl-horizontal">
+                <dt>
+                <h4>
+                Value:
+                </h4>
+            </dt>
+                <dd>
+                {totalValue}&nbsp;$
+            </dd>
+                <dt>
+                <h4>
+                Beta:
+                </h4>
+                </dt>
+                <dd>
+                {weightedBetaRounded}
+                </dd>
+                <dt>
+                <h4>
+                Risk:
+                </h4>
+            </dt>
+                <dd>
+                {Math.random()}
+            </dd>
+                </dl>
                 </div>
-                <div className="col-xs-4 ">
-                Value: {totalValue}&nbsp;$
-            </div>
-                </h2>
                 </div>
                 <div className="row">
-
                    <div className="col-lg-12 text-left ">
                       <AssetLst updateAsset={this.updateAsset} deleteAsset={this.deleteAsset} addAsset={this.addAsset} assets={this.state.assets}/>
                    </div>
@@ -223,7 +243,7 @@ var Asset = React.createClass({
                    )
         } else if (this.props.asset.loading === true) {
             return (<div className="row">
-                    <div className="col-lg-8 text-center">
+                    <div className="text-center">
                     <h4>
                       {this.props.asset.assetName}
                     </h4>
@@ -236,24 +256,27 @@ var Asset = React.createClass({
             var stockBeta = Math.round(this.props.asset.beta*100)/100;
             return(
                     <div className="row">
-                    <div className="col-lg-4">
+                    <dl className="dl-horizontal">
+                    <dt>
                     <p> {this.props.asset.assetName} (&beta;={stockBeta}), quantity: </p>
-                    </div>
-                    <div className="col-lg-3">
+                    </dt>
+                    <dd>
                     <form className="form-inline">
                     <div className="form-group">
-                    <label className="sr-only" >{this.props.asset.assetName}</label>
+                    <label className="sr-only"> {this.props.asset.assetName} </label>
                     <div className="input-group">
-                                        <input type="number" className="form-control" value={this.state.stockNum} onChange={this.updateStockNum}/>
-                    <div className="input-group-addon">&nbsp;&#215;{stockVal}$</div>
+                    <input type="number" className="form-control" value={this.state.stockNum} onChange={this.updateStockNum} />
+                    <div className="input-group-addon">&nbsp; &#215; {stockVal}$</div>
                     </div>
                     </div>
                     </form>
-                    </div>
-                    <div className="col-lg-1 text-right">
+                    </dd>
+                    <dd>
                     <button className="btn btn-small" onClick={this.handleDelete}>Del</button>
-                    </div>
-                    </div>
+                    </dd>
+                    </dl>
+
+                   </div>
            );
         }
     }
