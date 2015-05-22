@@ -200,7 +200,7 @@ var AssetLst = React.createClass({
                 </div>
                 </div>
                          </form>
-                <div className="row text-left col-lg-offset-2">
+                <div className="row">
                 <section className="small-padding">
                       <ul>
                          {assetNodes}
@@ -231,15 +231,14 @@ var Asset = React.createClass({
         if (this.props.asset.error === true) {
             return (
                     <div className="row">
-                    <dl className="dl-horizontal">
-                    
-                    <dt>
-                    <h4> Invalid asset: "{this.props.asset.assetName}"&nbsp;</h4>
-                    </dt>
-                    <dd>
+                    <div className="col-xs-4 text-right">
+
+                    <p>Invalid asset: "{this.props.asset.assetName}"&nbsp;
+                    </p>
+                    </div>
+                    <div className="col-xs-4 col-xs-offset-4 text-left">
                     <button className="btn btn-small" onClick={this.handleDelete}>Del</button>
-                    </dd>
-                    </dl>
+                    </div>
                     </div>
                    )
         } else if (this.props.asset.loading === true) {
@@ -257,25 +256,24 @@ var Asset = React.createClass({
             var stockBeta = Math.round(this.props.asset.beta*100)/100;
             return(
                     <div className="row">
-                    <dl className="dl-horizontal">
-                    <dt>
-                    <h4> {this.props.asset.assetName} (&beta;={stockBeta}), quantity: </h4>
-                    </dt>
-                    <dd>
+                    <div className="col-xs-4 text-right">
+                    <p> {this.props.asset.assetName} (&beta;={stockBeta}), quantity: </p>
+                    </div>
+                    <div className="col-xs-4 text-center">
                     <form className="form-inline">
                     <div className="form-group">
-                    <label className="sr-only"> {this.props.asset.assetName} </label>
+                    <label className="sr-only" >{this.props.asset.assetName}</label>
                     <div className="input-group">
-                    <input type="number" className="form-control" value={this.state.stockNum} onChange={this.updateStockNum} />
-                    <div className="input-group-addon">&nbsp; &#215; {stockVal}$</div>
+                                        <input type="number" className="form-control" value={this.state.stockNum} onChange={this.updateStockNum}/>
+                    <div className="input-group-addon">&nbsp;&#215;{stockVal}$</div>
                     </div>
                     </div>
                     </form>
+                    </div>
+                    <div className="col-xs-4 text-left">
                     <button className="btn btn-small" onClick={this.handleDelete}>Del</button>
-                    </dd>
-                    </dl>
-
-                   </div>
+                    </div>
+                    </div>
            );
         }
     }

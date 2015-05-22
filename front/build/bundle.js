@@ -246,7 +246,7 @@
 	                )
 	                )
 	                         ), 
-	                React.createElement("div", {className: "row text-left col-lg-offset-2"}, 
+	                React.createElement("div", {className: "row"}, 
 	                React.createElement("section", {className: "small-padding"}, 
 	                      React.createElement("ul", null, 
 	                         assetNodes
@@ -277,14 +277,13 @@
 	        if (this.props.asset.error === true) {
 	            return (
 	                    React.createElement("div", {className: "row"}, 
-	                    React.createElement("dl", {className: "dl-horizontal"}, 
-	                    
-	                    React.createElement("dt", null, 
-	                    React.createElement("h4", null, " Invalid asset: \"", this.props.asset.assetName, "\" ")
-	                    ), 
-	                    React.createElement("dd", null, 
-	                    React.createElement("button", {className: "btn btn-small", onClick: this.handleDelete}, "Del")
+	                    React.createElement("div", {className: "col-xs-4 text-right"}, 
+
+	                    React.createElement("p", null, "Invalid asset: \"", this.props.asset.assetName, "\" "
 	                    )
+	                    ), 
+	                    React.createElement("div", {className: "col-xs-4 col-xs-offset-4 text-left"}, 
+	                    React.createElement("button", {className: "btn btn-small", onClick: this.handleDelete}, "Del")
 	                    )
 	                    )
 	                   )
@@ -303,25 +302,24 @@
 	            var stockBeta = Math.round(this.props.asset.beta*100)/100;
 	            return(
 	                    React.createElement("div", {className: "row"}, 
-	                    React.createElement("dl", {className: "dl-horizontal"}, 
-	                    React.createElement("dt", null, 
-	                    React.createElement("h4", null, " ", this.props.asset.assetName, " (β=", stockBeta, "), quantity: ")
+	                    React.createElement("div", {className: "col-xs-4 text-right"}, 
+	                    React.createElement("p", null, " ", this.props.asset.assetName, " (β=", stockBeta, "), quantity: ")
 	                    ), 
-	                    React.createElement("dd", null, 
+	                    React.createElement("div", {className: "col-xs-4 text-center"}, 
 	                    React.createElement("form", {className: "form-inline"}, 
 	                    React.createElement("div", {className: "form-group"}, 
-	                    React.createElement("label", {className: "sr-only"}, " ", this.props.asset.assetName, " "), 
+	                    React.createElement("label", {className: "sr-only"}, this.props.asset.assetName), 
 	                    React.createElement("div", {className: "input-group"}, 
-	                    React.createElement("input", {type: "number", className: "form-control", value: this.state.stockNum, onChange: this.updateStockNum}), 
-	                    React.createElement("div", {className: "input-group-addon"}, "  × ", stockVal, "$")
+	                                        React.createElement("input", {type: "number", className: "form-control", value: this.state.stockNum, onChange: this.updateStockNum}), 
+	                    React.createElement("div", {className: "input-group-addon"}, " ×", stockVal, "$")
+	                    )
 	                    )
 	                    )
 	                    ), 
+	                    React.createElement("div", {className: "col-xs-4 text-left"}, 
 	                    React.createElement("button", {className: "btn btn-small", onClick: this.handleDelete}, "Del")
 	                    )
 	                    )
-
-	                   )
 	           );
 	        }
 	    }
