@@ -154,7 +154,7 @@ aside {
     padding: 0;
 }
 .small-padding {
-    padding: 0.10;
+    padding: 50px 0;
 }
 .navbar-default {
     border-color: rgba(34,34,34,.05);

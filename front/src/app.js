@@ -126,13 +126,18 @@ var AlphaBeta = React.createClass({
         return(
             <div>
                 <div className="row">
-                   <div className="col-lg-5 col-lg-offset-4 text-left">
-                        <h2>Portfolio BETA: {weightedBetaRounded}</h2>
-                        <h2>Portfolio Value: {totalValue}&nbsp;$</h2>
-                   </div>
+                <h2>
+                <div className="col-xs-3 col-xs-offset-3">
+                Portfolio BETA: {weightedBetaRounded}
+                </div>
+                <div className="col-xs-4 ">
+                Value: {totalValue}&nbsp;$
+            </div>
+                </h2>
                 </div>
                 <div className="row">
-                   <div className="col-lg-10 col-lg-offset-2 text-left small-padding">
+
+                   <div className="col-lg-12 text-left ">
                       <AssetLst updateAsset={this.updateAsset} deleteAsset={this.deleteAsset} addAsset={this.addAsset} assets={this.state.assets}/>
                    </div>
                 </div>
@@ -167,14 +172,15 @@ var AssetLst = React.createClass({
         var newAssetCode = this.state.newAssetCode;
         return (
                 <div>
-                   <div className="row">
-                      <div className="col-lg-9 col-lg-offset-3 text-left">
                          <form className="form-inline" onSubmit={this.handleSubmit}>
-                         <input className="form-control" placeholder="Asset name" type="text" value={newAssetCode} onChange={this.updateNewAsset}/>
-                         <button className="btn btn-primary" type="submit">Add</button></form>
-                      </div>
-                   </div>
-                <div className="row text-left">
+                         <div className="row small-padding">
+                         <div className="col-lg-12 text-center">
+                <input className="form-control input-lg" placeholder="Asset name" type="text" value={newAssetCode} onChange={this.updateNewAsset}/>
+                         <button className="btn btn-primary btn-lg" type="submit">Add</button>
+                </div>
+                </div>
+                         </form>
+                <div className="row text-left col-lg-offset-2">
                 <section className="small-padding">
                       <ul>
                          {assetNodes}
