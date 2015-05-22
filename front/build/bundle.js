@@ -277,13 +277,14 @@
 	        if (this.props.asset.error === true) {
 	            return (
 	                    React.createElement("div", {className: "row"}, 
-	                    React.createElement("div", {className: "col-lg-7"}, 
-
-	                    React.createElement("p", null, "Invalid asset: \"", this.props.asset.assetName, "\" "
-	                    )
+	                    React.createElement("dl", {className: "dl-horizontal"}, 
+	                    
+	                    React.createElement("dt", null, 
+	                    React.createElement("h4", null, " Invalid asset: \"", this.props.asset.assetName, "\" ")
 	                    ), 
-	                    React.createElement("div", {className: "col-lg-1 text-right"}, 
+	                    React.createElement("dd", null, 
 	                    React.createElement("button", {className: "btn btn-small", onClick: this.handleDelete}, "Del")
+	                    )
 	                    )
 	                    )
 	                   )
@@ -304,7 +305,7 @@
 	                    React.createElement("div", {className: "row"}, 
 	                    React.createElement("dl", {className: "dl-horizontal"}, 
 	                    React.createElement("dt", null, 
-	                    React.createElement("p", null, " ", this.props.asset.assetName, " (β=", stockBeta, "), quantity: ")
+	                    React.createElement("h4", null, " ", this.props.asset.assetName, " (β=", stockBeta, "), quantity: ")
 	                    ), 
 	                    React.createElement("dd", null, 
 	                    React.createElement("form", {className: "form-inline"}, 
@@ -315,9 +316,7 @@
 	                    React.createElement("div", {className: "input-group-addon"}, "  × ", stockVal, "$")
 	                    )
 	                    )
-	                    )
 	                    ), 
-	                    React.createElement("dd", null, 
 	                    React.createElement("button", {className: "btn btn-small", onClick: this.handleDelete}, "Del")
 	                    )
 	                    )

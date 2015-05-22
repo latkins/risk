@@ -231,14 +231,15 @@ var Asset = React.createClass({
         if (this.props.asset.error === true) {
             return (
                     <div className="row">
-                    <div className="col-lg-7">
-
-                    <p>Invalid asset: "{this.props.asset.assetName}"&nbsp;
-                    </p>
-                    </div>
-                    <div className="col-lg-1 text-right">
+                    <dl className="dl-horizontal">
+                    
+                    <dt>
+                    <h4> Invalid asset: "{this.props.asset.assetName}"&nbsp;</h4>
+                    </dt>
+                    <dd>
                     <button className="btn btn-small" onClick={this.handleDelete}>Del</button>
-                    </div>
+                    </dd>
+                    </dl>
                     </div>
                    )
         } else if (this.props.asset.loading === true) {
@@ -258,7 +259,7 @@ var Asset = React.createClass({
                     <div className="row">
                     <dl className="dl-horizontal">
                     <dt>
-                    <p> {this.props.asset.assetName} (&beta;={stockBeta}), quantity: </p>
+                    <h4> {this.props.asset.assetName} (&beta;={stockBeta}), quantity: </h4>
                     </dt>
                     <dd>
                     <form className="form-inline">
@@ -270,8 +271,6 @@ var Asset = React.createClass({
                     </div>
                     </div>
                     </form>
-                    </dd>
-                    <dd>
                     <button className="btn btn-small" onClick={this.handleDelete}>Del</button>
                     </dd>
                     </dl>
