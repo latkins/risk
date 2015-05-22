@@ -302,7 +302,7 @@
 	            var stockBeta = Math.round(this.props.asset.beta*100)/100;
 	            return(
 	                    React.createElement("div", {className: "row"}, 
-	                    React.createElement("div", {className: "col-xs-4 text-right"}, 
+	                    React.createElement("div", {className: "col-md-4 text-right"}, 
 	                    React.createElement("p", null, " ", this.props.asset.assetName, " (β=", stockBeta, "), quantity: ")
 	                    ), 
 	                    React.createElement("div", {className: "col-xs-4 text-center"}, 

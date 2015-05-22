@@ -256,7 +256,7 @@ var Asset = React.createClass({
             var stockBeta = Math.round(this.props.asset.beta*100)/100;
             return(
                     <div className="row">
-                    <div className="col-xs-4 text-right">
+                    <div className="col-md-4 text-right">
                     <p> {this.props.asset.assetName} (&beta;={stockBeta}), quantity: </p>
                     </div>
                     <div className="col-xs-4 text-center">
