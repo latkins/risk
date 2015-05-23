@@ -126,13 +126,38 @@ var AlphaBeta = React.createClass({
         return(
             <div>
                 <div className="row">
-                   <div className="col-lg-5 col-lg-offset-4 text-left">
-                        <h2>Portfolio BETA: {weightedBetaRounded}</h2>
-                        <h2>Portfolio Value: {totalValue}&nbsp;$</h2>
-                   </div>
+                <h2> Portfolio statistics </h2>
+                <div className="col-lg-8 col-lg-offset-3 small-padding">
+                <dl className="dl-horizontal">
+                <dt>
+                <h4>
+                Value:
+                </h4>
+            </dt>
+                <dd>
+                {totalValue}&nbsp;$
+            </dd>
+                <dt>
+                <h4>
+                Beta:
+                </h4>
+                </dt>
+                <dd>
+                {weightedBetaRounded}
+                </dd>
+                <dt>
+                <h4>
+                Risk:
+                </h4>
+            </dt>
+                <dd>
+                {Math.random()}
+            </dd>
+                </dl>
+                </div>
                 </div>
                 <div className="row">
-                   <div className="col-lg-10 col-lg-offset-2 text-left small-padding">
+                   <div className="col-lg-12 text-left ">
                       <AssetLst updateAsset={this.updateAsset} deleteAsset={this.deleteAsset} addAsset={this.addAsset} assets={this.state.assets}/>
                    </div>
                 </div>
@@ -167,14 +192,15 @@ var AssetLst = React.createClass({
         var newAssetCode = this.state.newAssetCode;
         return (
                 <div>
-                   <div className="row">
-                      <div className="col-lg-9 col-lg-offset-3 text-left">
                          <form className="form-inline" onSubmit={this.handleSubmit}>
-                         <input className="form-control" placeholder="Asset name" type="text" value={newAssetCode} onChange={this.updateNewAsset}/>
-                         <button className="btn btn-primary" type="submit">Add</button></form>
-                      </div>
-                   </div>
-                <div className="row text-left">
+                         <div className="row small-padding">
+                         <div className="col-lg-12 text-center">
+                <input className="form-control input-lg" placeholder="Asset name" type="text" value={newAssetCode} onChange={this.updateNewAsset}/>
+                         <button className="btn btn-primary btn-lg" type="submit">Add</button>
+                </div>
+                </div>
+                         </form>
+                <div className="row">
                 <section className="small-padding">
                       <ul>
                          {assetNodes}
@@ -205,19 +231,19 @@ var Asset = React.createClass({
         if (this.props.asset.error === true) {
             return (
                     <div className="row">
-                    <div className="col-lg-6">
+                    <div className="col-xs-4 text-right">
 
-                    <p>Invalid Asset: "{this.props.asset.assetName}"&nbsp;
+                    <p>Invalid asset: "{this.props.asset.assetName}"&nbsp;
                     </p>
                     </div>
-                    <div classame="col-lg-2 text-right">
+                    <div className="col-xs-4 col-xs-offset-4 text-left">
                     <button className="btn btn-small" onClick={this.handleDelete}>Del</button>
                     </div>
                     </div>
                    )
         } else if (this.props.asset.loading === true) {
             return (<div className="row">
-                    <div className="col-lg-8 text-center">
+                    <div className="text-center">
                     <h4>
                       {this.props.asset.assetName}
                     </h4>
@@ -230,10 +256,10 @@ var Asset = React.createClass({
             var stockBeta = Math.round(this.props.asset.beta*100)/100;
             return(
                     <div className="row">
-                    <div className="col-lg-4">
+                    <div className="col-md-4 text-right">
                     <p> {this.props.asset.assetName} (&beta;={stockBeta}), quantity: </p>
                     </div>
-                    <div className="col-lg-2">
+                    <div className="col-xs-4 text-center">
                     <form className="form-inline">
                     <div className="form-group">
                     <label className="sr-only" >{this.props.asset.assetName}</label>
@@ -244,7 +270,7 @@ var Asset = React.createClass({
                     </div>
                     </form>
                     </div>
-                    <div className="col-lg-2 text-right">
+                    <div className="col-xs-4 text-left">
                     <button className="btn btn-small" onClick={this.handleDelete}>Del</button>
                     </div>
                     </div>

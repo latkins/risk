@@ -1,0 +1,9 @@
+
+the list of the available stats is a bit off to the left. is this bad? should i change this? at one point i was convinced i like it.
+
+the connectedness of delete button and asset list should be changed to MD (or the asset name)?
+
+when pressing ENTER after entering a quantity for stocks, weird shit like reloading occurs. why?
+
+the quantities are somehow disjoint from the asset name when creating the list of assets in a portfolio. this is a functionality flaw we need to fix.
+
