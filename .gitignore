@@ -1,4 +1,4 @@
 *.pyc
 *.tern_port
 front/node_modules/*
-*.sql
+stocks.sql
