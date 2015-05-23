@@ -3,12 +3,12 @@ from flask import request, jsonify
 from betaIndividualAsset import calcAlphaBeta
 from Quandl import DatasetNotFound
 import sqlite3
-from mkTables import getStocks 
+from dbUtils import getStocks, getDbConn
 from datetime import datetime
 
 app = Flask(__name__, static_folder='front', static_url_path='')
 errorResp = {'data' : None, 'message' : 'error'}
-conn = sqlite3.connect('stocks.sql', detect_types=sqlite3.PARSE_DECLTYPES)
+conn = getDbConn()
 
 @app.route('/', methods=["GET"])
 def root():
@@ -57,8 +57,6 @@ def getPrice():
         print("An sql error occurred in getting the stock price: {}".format(e))
         resp=jsonify(errorResp)
     return(resp)
-
-
 
 
 if __name__ == "__main__":

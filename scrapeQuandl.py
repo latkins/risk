@@ -2,7 +2,7 @@ from Quandl import DatasetNotFound
 import Quandl
 import sqlite3
 from sqlite3 import ProgrammingError
-from mkTables import insertQuandlCodeName, insertQuandlRows
+from dbUtils import insertQuandlCodeName, insertQuandlRows, getDbConn
 
 authToken = "fiJDS_QdhvzhjYQ5m8CV"
 
@@ -15,7 +15,7 @@ def getInsertAllStock(conn, codeFile):
 
 def codeExistsInDb(conn, stockCode):
     c = conn.cursor()
-    c.execute(u"SELECT * FROM quandldata WHERE quandlcode IS ?",(stockCode,))
+    c.execute(u"SELECT * FROM quandldata WHERE quandlcode=%s",(stockCode,))
     if c.fetchone():
         return True
     else:
@@ -48,6 +48,5 @@ def readCodes(codeFile):
     return(outLst)
 
 if __name__=="__main__":
-    conn = sqlite3.connect('stocks.sql', detect_types=sqlite3.PARSE_DECLTYPES)
-    conn.text_factory = sqlite3.OptimizedUnicode
-    getInsertAllStock(conn, "/Users/liam/Downloads/WIKI_tickers.csv")
+    conn = getDbConn()
+    getInsertAllStock(conn, "WIKI_tickers.csv")

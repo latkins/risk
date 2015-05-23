@@ -33,7 +33,7 @@ var AlphaBeta = React.createClass({
 			  return uuid;
 		},
     getInitialState: function() {
-        return ({ benchCode: "WIKI/AEE", assets: [] });
+        return ({ benchCode: "YAHOO/INDEX_GSPC", assets: [] });
     },
     addAsset: function(newAssetCode) {
         var assetArray = this.state.assets.slice();
@@ -116,11 +116,11 @@ var AlphaBeta = React.createClass({
                 var a = validAssets[idx];
                 totalValue += a.assetPrice * a.stockNum;
                 totalBeta += a.beta * (a.assetPrice * a.stockNum);
-                totalValue = Math.round(totalValue*100)/100
+                totalValue = Math.round(totalValue*100)/100;
             }
             weightedBeta = totalBeta / totalValue;
             if (weightedBeta){
-                weightedBetaRounded = Math.round(weightedBeta*100)/100
+                weightedBetaRounded = Math.round(weightedBeta*100)/100;
             }
         }
         return(
