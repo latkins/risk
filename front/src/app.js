@@ -213,9 +213,6 @@ var AssetLst = React.createClass({
 });
 
 var Asset = React.createClass({
-    getInitialState: function() {
-        return({stockNum: 1});
-    },
     handleDelete: function (event) {
         event.preventDefault();
         this.props.deleteAsset(this.props.asset);
@@ -223,7 +220,7 @@ var Asset = React.createClass({
     updateStockNum: function (event) {
         event.preventDefault();
         var asset = this.props.asset;
-        this.setState({stockNum: event.target.value});
+        // this.setState({stockNum: event.target.value});
         asset.stockNum = event.target.value;
         this.props.updateAsset(asset);
     },
@@ -240,7 +237,7 @@ var Asset = React.createClass({
                     <button className="btn btn-small" onClick={this.handleDelete}>Del</button>
                     </div>
                     </div>
-                   )
+            );
         } else if (this.props.asset.loading === true) {
             return (<div className="row">
                     <div className="text-center">
@@ -252,6 +249,7 @@ var Asset = React.createClass({
                     </div>
                    );
         } else {
+            var stockNum = this.props.asset.stockNum;
             var stockVal = this.props.asset.assetPrice;
             var stockBeta = Math.round(this.props.asset.beta*100)/100;
             return(
@@ -264,7 +262,7 @@ var Asset = React.createClass({
                     <div className="form-group">
                     <label className="sr-only" >{this.props.asset.assetName}</label>
                     <div className="input-group">
-                                        <input type="number" className="form-control" value={this.state.stockNum} onChange={this.updateStockNum}/>
+                                        <input type="number" className="form-control" value={stockNum} onChange={this.updateStockNum}/>
                     <div className="input-group-addon">&nbsp;&#215;{stockVal}$</div>
                     </div>
                     </div>
