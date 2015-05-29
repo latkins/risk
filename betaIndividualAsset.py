@@ -51,8 +51,7 @@ def calcAlphaBeta(asset, bench, start=None, end=None):
 
 
     #calculate value at risk measure
-def calcVAR(asset, start=None, end=None)
-    #look at relevant time frame
-    asset = asset.ix[start:end]
-    
+#def calcVAR(asset, start=None, end=None)
+#    #look at relevant time frame
+#    asset = asset.ix[start:end]
 
